@@ -10,17 +10,20 @@ public class ZombieSpawner : CharacterSpawner
     }
     private IEnumerator SpawnZombies()
     {
-        while (true) // 무한 루프
+        while (true)
         {
             Character zombie = base.CharacterSpawn();
             ZombieSetting(zombie);
-           yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2f);
         }
     }
     private void ZombieSetting(Character zombie)
     {
-        zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
-        zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
+        if (GameManager.Instance.zombieCityData != null)
+        {
+            zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
+            zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
+        }
     }
     private void OnDisable()
     {

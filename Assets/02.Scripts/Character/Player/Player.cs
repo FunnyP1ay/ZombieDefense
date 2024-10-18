@@ -5,8 +5,7 @@ public class Player : Character
     [SerializeField] private FloatingJoystick m_joystick;
     [SerializeField] private float m_speed = 2f;
     private Vector3 m_moveVector;
-
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.player = this;
     }

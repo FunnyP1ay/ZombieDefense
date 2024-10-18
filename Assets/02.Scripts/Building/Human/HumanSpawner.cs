@@ -9,20 +9,25 @@ public class HumanSpawner : CharacterSpawner
     }
     private IEnumerator SpawnHuman()
     {
-        while (true) // 무한 루프
+        while (true)
         {
+            CityMoneyCheck();
+            yield return new WaitForSeconds(2f);
+        }
+    }
+    private void CityMoneyCheck()
+    {
+        if (GameManager.Instance.playerCityData != null && GameManager.Instance.playerCityData.CityMoney >= 50)
+        {
+            GameManager.Instance.playerCityData.CityMoney -= 50;
             Character human = base.CharacterSpawn();
             HumanSetting(human);
-            yield return new WaitForSeconds(2f);
         }
     }
     private void HumanSetting(Character human)
     {
-        if (GameManager.Instance.playerCityData != null)
-        {
-            human.health += GameManager.Instance.playerCityData.HealthLevel;
-            human.attackPower += GameManager.Instance.playerCityData.AttackLevel;
-        }
+        human.health += GameManager.Instance.playerCityData.HealthLevel;
+        human.attackPower += GameManager.Instance.playerCityData.AttackLevel;
     }
     private void OnDisable()
     {
