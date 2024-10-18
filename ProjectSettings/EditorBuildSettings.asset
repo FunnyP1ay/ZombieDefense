@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/01.Scenes/MainMenu.unity
+    guid: 57358586cceb6bf4b887cb51b31b1e6c
+  - enabled: 1
+    path: Assets/01.Scenes/InfinityWaveGame.unity
+    guid: c6e4937d473adce4ba1f6995b211e6ff
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
