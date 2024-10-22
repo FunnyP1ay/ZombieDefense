@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: b20a3c10714a6ac439af479e3273de65
 ModelImporter:
-  serializedVersion: 20300
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -925,10 +925,9 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -940,7 +939,118 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - Root
+    - Root/Hips
+    - Root/Hips/Spine_01
+    - Root/Hips/Spine_01/Spine_02
+    - Root/Hips/Spine_01/Spine_02/Spine_03
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02/Finger_03
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02/Finger_03/Finger_04
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02/IndexFinger_03
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02/IndexFinger_03/IndexFinger_04
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02/Thumb_03
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01
+      1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01
+      1/Finger_02 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01
+      1/Finger_02 1/Finger_03 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01
+      1/Finger_02 1/Finger_03 1/Finger_04 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01
+      1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01
+      1/IndexFinger_02 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01
+      1/IndexFinger_02 1/IndexFinger_03 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01
+      1/IndexFinger_02 1/IndexFinger_03 1/IndexFinger_04 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01
+      1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01
+      1/Thumb_02 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01
+      1/Thumb_02 1/Thumb_03 1
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Neck
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Eyebrows
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Eyes
+    - Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Jaw
+    - Root/Hips/UpperLeg_L
+    - Root/Hips/UpperLeg_L/LowerLeg_L
+    - Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L
+    - Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L/Ball_L
+    - Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L/Ball_L/Toes_L
+    - Root/Hips/UpperLeg_R
+    - Root/Hips/UpperLeg_R/LowerLeg_R
+    - Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R
+    - Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R/Ball_R
+    - Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R/Ball_R/Toes_R
+    - Zombie_Bellboy_Male_01
+    - Zombie_Biker_Male_01
+    - Zombie_BioHazardSuit_Male_01
+    - Zombie_Bride_Female_01
+    - Zombie_Business_Female_01
+    - Zombie_Businessman_Male_01
+    - Zombie_BusinessShirt_Male_01
+    - Zombie_Cheerleader_Female_01
+    - Zombie_Clown_Male_01
+    - Zombie_Coat_Female_01
+    - Zombie_Daughter_Female_01
+    - Zombie_Diver_Male_01
+    - Zombie_FastfoodWorker_Male_01
+    - Zombie_Father_Male_01
+    - Zombie_Father_Male_02
+    - Zombie_Firefighter_Male_01
+    - Zombie_Footballer_Male_01
+    - Zombie_GamerGirl_Female_01
+    - Zombie_Gangster_Male_01
+    - Zombie_Grandma_Female_01
+    - Zombie_Grandpa_Male_01
+    - Zombie_Hipster_Female_01
+    - Zombie_Hipster_Male_01
+    - Zombie_Hobo_Male_01
+    - Zombie_Hoodie_Male_01
+    - Zombie_HotDogSuit_Male_01
+    - Zombie_Jacket_Female_01
+    - Zombie_Jacket_Male_01
+    - Zombie_Jock_Male_01
+    - Zombie_Military_Male_01
+    - Zombie_Mother_Female_01
+    - Zombie_Mother_Female_02
+    - Zombie_Paramedic_Female_01
+    - Zombie_Patient_Female_01
+    - Zombie_Police_Female_01
+    - Zombie_Police_Male_01
+    - Zombie_Prisinor_Male_01
+    - Zombie_Punk_Female_01
+    - Zombie_Punk_Male_01
+    - Zombie_RiotCop_Male_01
+    - Zombie_Roadworker_Male_01
+    - Zombie_SchoolBoy_Male_01
+    - Zombie_SchoolGirl_Female_01
+    - Zombie_ShopKeeper_Female_01
+    - Zombie_ShopKeeper_Male_01
+    - Zombie_Son_Male_01
+    - Zombie_SummerGirl_Female_01
+    - Zombie_Tourist_Male_01
+    - Zombie_Underwear_Female_01
+    - Zombie_Underwear_Male_01
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0
@@ -951,10 +1061,12 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -966,6 +1078,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: 1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
@@ -976,6 +1089,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 0
     normalImportMode: 1
@@ -1849,6 +1963,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 

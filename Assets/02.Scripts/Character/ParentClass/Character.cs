@@ -6,12 +6,22 @@ public class Character : MonoBehaviour
     public float health;
     public float speed;
     public float attackPower;
-    protected Rigidbody m_rigidbody;
+    public GameObject target;
+    public LayerMask targetLayer;
     protected Animator m_animator;
-    private void Awake()
+
+
+    public enum TeamValue
     {
-        m_rigidbody = GetComponent<Rigidbody>();
-        m_animator = GetComponent<Animator>();
+        PlayerTeam,
+        Zombie,
+        EnemyHuman
+    }
+    public TeamValue Team;
+
+    public virtual void RespawnSetting()
+    {
+
     }
     public virtual void Move()
     {
@@ -19,10 +29,13 @@ public class Character : MonoBehaviour
     }
     public virtual void Attack()
     {
+
         Debug.Log(gameObject.name + "이/가 " + attackPower + " 만큼 공격했습니다.");
+        
     }
     public void TakeDamage(float damage)
     {
+        // 데미지를 입었습니다.
         health -= damage;
         if (health <= 0)
         {
@@ -34,6 +47,7 @@ public class Character : MonoBehaviour
     {
         Debug.Log(gameObject.name + "이/가 죽었습니다.");
         LeanPool.Despawn(this.gameObject);
+        // 애니매이션 실행시키는 부분
     }
 
 }
