@@ -77,6 +77,7 @@ public class Zombie : Character
         agent.ResetPath();
         StopCoroutine(AIState());
         target = null;
+        GameManager.Instance.zombieCityData.ZombieCountUpdate(-1);
         base.Die();
     }
     private void OnDisable()

@@ -32,4 +32,5 @@ public class GameManager : MonoBehaviour
     public PlayerCityData playerCityData;
     public ZombieCityData zombieCityData;
     public Character player;
+    
 }
