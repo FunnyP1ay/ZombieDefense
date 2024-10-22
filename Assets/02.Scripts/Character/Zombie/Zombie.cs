@@ -65,10 +65,6 @@ public class Zombie : Character
     }
     public override void Attack()
     {
-        if (m_animator == null)
-        {
-            Debug.LogError("Animator is not assigned!");
-        }
         if (target != null && Vector3.Distance(this.transform.position, target.transform.position) <= 1f)
         {
             target.gameObject.GetComponent<Character>().TakeDamage(1f);
