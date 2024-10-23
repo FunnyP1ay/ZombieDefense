@@ -36,15 +36,16 @@ public class Player : Character
         Quaternion targetRotation = Quaternion.LookRotation(m_moveVector);
         float angle = Vector3.SignedAngle(transform.forward, m_moveVector, Vector3.up);
 
-        if (angle < 90 && angle > -90) // 조이스틱이 앞일 때
+        if (angle < 120 && angle > -120) // 조이스틱이 앞일 때
         {
             m_rigidbody.rotation = Quaternion.Slerp(m_rigidbody.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
             m_rigidbody.MovePosition(m_rigidbody.position + m_moveVector);
         }
-        else
+        else 
         {
+            //m_rigidbody.rotation = Quaternion.Slerp(m_rigidbody.rotation, targetRotation, m_rotationSpeed/2 * Time.deltaTime);
             //TODO 뒤로 걷는 애니메이션
-            m_rigidbody.MovePosition(m_rigidbody.position - m_moveVector);
+            m_rigidbody.MovePosition(m_rigidbody.position + m_moveVector);
         }
     }
 
