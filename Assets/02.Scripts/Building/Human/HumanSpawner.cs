@@ -20,14 +20,17 @@ public class HumanSpawner : CharacterSpawner
         if (GameManager.Instance.playerCityData != null && GameManager.Instance.playerCityData.CityMoney >= 50)
         {
             GameManager.Instance.playerCityData.CityMoney -= 50;
-            Character human = base.CharacterSpawn();
-            HumanSetting(human);
+            Character gunnerHuman = base.CharacterSpawn();
+            HumanSetting(gunnerHuman);
         }
     }
-    private void HumanSetting(Character human)
+    private void HumanSetting(Character gunnerHuman)
     {
-        human.health += GameManager.Instance.playerCityData.HealthLevel;
-        human.attackPower += GameManager.Instance.playerCityData.AttackLevel;
+        gunnerHuman.GetComponent<GunnerHuman>();
+        gunnerHuman.health += GameManager.Instance.playerCityData.HealthLevel;
+        gunnerHuman.attackPower += GameManager.Instance.playerCityData.AttackLevel;
+        gunnerHuman.RespawnSetting();
+        GameManager.Instance.playerCityData.PlayerTeamCountUpdate(1);
     }
     private void OnDisable()
     {

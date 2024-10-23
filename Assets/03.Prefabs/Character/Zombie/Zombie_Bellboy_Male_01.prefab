@@ -5603,16 +5603,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc07be29ddc3eb34d9bd209092cc8288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 5
   speed: 2
-  attackPower: 0
+  attackPower: 1
+  attackRange: 1
   target: {fileID: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 5120
   Team: 1
   baseTarget: {fileID: 0}
-  m_moveBugFixCount: 0
+  m_moveSupportCount: 0
 --- !u!195 &5142329604028324432
 NavMeshAgent:
   m_ObjectHideFlags: 0

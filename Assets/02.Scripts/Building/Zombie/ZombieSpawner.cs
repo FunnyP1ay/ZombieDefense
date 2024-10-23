@@ -4,6 +4,7 @@ using System.Collections;
 
 public class ZombieSpawner : CharacterSpawner
 {
+    private WaitForSecondsRealtime m_twoSeccond = new WaitForSecondsRealtime(2);
     private void OnEnable()
     {
         StartCoroutine(SpawnZombies());
@@ -12,7 +13,7 @@ public class ZombieSpawner : CharacterSpawner
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return m_twoSeccond;
             if (GameManager.Instance.zombieCityData != null && GameManager.Instance.zombieCityData.ZombieCount < 100)
             {
                 Character zombie = base.CharacterSpawn();

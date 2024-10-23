@@ -4,8 +4,8 @@ using Lean.Pool;
 public class Character : MonoBehaviour
 {
     public float health;
-    public float speed;
     public float attackPower;
+    public float attackRange;
     public GameObject target;
     public LayerMask targetLayer;
     protected Animator m_animator;
