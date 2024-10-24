@@ -1602,7 +1602,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  speed: 2
   attackPower: 1
   attackRange: 5
   target: {fileID: 0}
