@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
     public virtual void Attack()
     {
 
-        Debug.Log(gameObject.name + "이/가 " + attackPower + " 만큼 공격했습니다.");
+
         
     }
     public void TakeDamage(float damage)

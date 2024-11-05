@@ -9,6 +9,7 @@ public class GunnerHuman : Character
     private WaitForSecondsRealtime m_attackTime = new WaitForSecondsRealtime(0.5f);
     private WaitForSecondsRealtime m_currentTime;
     public GameObject moveTarget;
+    public ParticleSystem fireEffect;
     private NavMeshAgent agent;
     private float m_detectionRadius = 10f;
 
@@ -63,7 +64,6 @@ public class GunnerHuman : Character
         // 맨처음 웨이포인트 조차 없을 때 , 거리가 2f 보다 가까울 때
         if (moveTarget == null || Vector3.Distance(this.transform.position, moveTarget.transform.position) < 2f)
         {
-            print("목적지를 재 설정합니다.");
             int randNum = Random.Range(0, GameManager.Instance.playerCityData.wayPointList.Count);
             moveTarget = GameManager.Instance.playerCityData.wayPointList[randNum];
             agent.SetDestination(moveTarget.transform.position);
@@ -80,6 +80,7 @@ public class GunnerHuman : Character
             {
                 state = State.Attack;
                 agent.speed = 0;
+                fireEffect.Play();
                 m_animator.SetBool("Attack", true);
                 moveTarget = null;
                 m_currentTime = m_attackTime;
@@ -102,8 +103,8 @@ public class GunnerHuman : Character
             target.gameObject.GetComponent<Character>().TakeDamage(attackPower);
             agent.ResetPath();
             transform.LookAt(target.transform);
+            fireEffect.Play();
             m_animator.SetBool("Attack",true);
-            print("공격했습니다.");
             base.Attack();
         }
     }
@@ -125,6 +126,7 @@ public class GunnerHuman : Character
         GameManager.Instance.playerCityData.PlayerTeamCountUpdate(-1);
         LeanPool.Despawn(this.gameObject);
     }
+
     private void OnDisable()
     {
     }

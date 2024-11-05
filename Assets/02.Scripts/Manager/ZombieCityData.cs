@@ -3,7 +3,7 @@ using TMPro;
 
 public class ZombieCityData : MonoBehaviour
 {
-   
+
     public int HealthLevel = 0;
     public int AttackLevel = 0;
     public int ZombieCount = 0;
@@ -15,7 +15,7 @@ public class ZombieCityData : MonoBehaviour
     }
     public void ZombieCountUpdate(int value)
     {
-        ZombieCount +=value;
+        ZombieCount += value;
         UI_ZombieCount.text = ZombieCount.ToString();
     }
 }
