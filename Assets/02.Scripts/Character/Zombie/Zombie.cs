@@ -94,7 +94,7 @@ public class Zombie : Character
             agent.ResetPath();
             target = null;
             GameManager.Instance.zombieCityData.ZombieCountUpdate(-1);
-            LeanPool.Despawn(this.gameObject);
+            base.Die();
         }
 
     }

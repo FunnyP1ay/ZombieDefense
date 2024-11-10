@@ -46,6 +46,7 @@ public class Character : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log(gameObject.name + "이/가 죽었습니다.");
+        health = 0;
         LeanPool.Despawn(this.gameObject);
         // 애니매이션 실행시키는 부분
     }

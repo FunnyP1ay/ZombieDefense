@@ -14,21 +14,24 @@ public class ZombieSpawner : CharacterSpawner
         while (true)
         {
             yield return m_twoSeccond;
-            if (GameManager.Instance.zombieCityData != null && GameManager.Instance.zombieCityData.ZombieCount < 100)
+            if (GameManager.Instance.zombieCityData != null && GameManager.Instance.zombieCityData.ZombieCount < 200)
             {
-                Character zombie = base.CharacterSpawn();
-                ZombieSetting(zombie);
+                for (int i = 0; i < 2; i++)
+                {
+                    Character zombie = base.CharacterSpawn();
+                    ZombieSetting(zombie);
+                }
             }
 
         }
     }
     private void ZombieSetting(Character zombie)
     {
-            zombie = zombie.GetComponent<Zombie>();
-            zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
-            zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
-            zombie.RespawnSetting();
-            GameManager.Instance.zombieCityData.ZombieCountUpdate(1);
+        zombie = zombie.GetComponent<Zombie>();
+        zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
+        zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
+        zombie.RespawnSetting();
+        GameManager.Instance.zombieCityData.ZombieCountUpdate(1);
     }
     private void OnDisable()
     {

@@ -12,6 +12,7 @@ public class GunnerHuman : Character
     public ParticleSystem fireEffect;
     private NavMeshAgent agent;
     private float m_detectionRadius = 10f;
+    private bool m_isDie = false;
 
     public enum State
     {
@@ -26,8 +27,10 @@ public class GunnerHuman : Character
     }
     public override void RespawnSetting()
     {
+        m_isDie = false;
         target = null;
         moveTarget = null;
+        state = State.Move;
         m_currentTime = m_time2;
         m_animator.SetBool("Attack", false);
         StartCoroutine(AIState());
@@ -104,12 +107,12 @@ public class GunnerHuman : Character
             agent.ResetPath();
             transform.LookAt(target.transform);
             fireEffect.Play();
-            m_animator.SetBool("Attack",true);
+            m_animator.SetBool("Attack", true);
             base.Attack();
         }
     }
- 
-  
+
+
     public void NextCoroutineTime()
     {
         int rand = Random.Range(0, 2);
@@ -120,11 +123,16 @@ public class GunnerHuman : Character
     }
     protected override void Die()
     {
-        agent.ResetPath();
-        StopCoroutine(AIState());
-        target = null;
-        GameManager.Instance.playerCityData.PlayerTeamCountUpdate(-1);
-        LeanPool.Despawn(this.gameObject);
+        if (!m_isDie)
+        {
+            m_isDie = true;
+            StopCoroutine(AIState());
+            agent.ResetPath();
+            target = null;
+            GameManager.Instance.playerCityData.PlayerTeamCountUpdate(-1);
+            base.Die();
+
+        }
     }
 
     private void OnDisable()
