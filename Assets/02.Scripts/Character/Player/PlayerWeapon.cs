@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
-
-    private Coroutine fireCoroutine;
-    private Character target;
+    private Animator m_animator;
+    private Coroutine m_fireCoroutine;
+    private Character m_target;
     public LayerMask enemyLayer;
     public Weapon currentWeapon;
     private void Start()
     {
+        m_animator = GetComponent<Animator>();
         EquipWeapon();
     }
 
@@ -18,11 +19,11 @@ public class PlayerWeapon : MonoBehaviour
     public void EquipWeapon()
     {
 
-        if (fireCoroutine != null)
+        if (m_fireCoroutine != null)
         {
-            StopCoroutine(fireCoroutine);
+            StopCoroutine(m_fireCoroutine);
         }
-        fireCoroutine = StartCoroutine(FireWeaponRoutine());
+        m_fireCoroutine = StartCoroutine(FireWeaponRoutine());
 
     }
 
@@ -33,7 +34,13 @@ public class PlayerWeapon : MonoBehaviour
         {
             if (IsEnemyInRange()) // 일정 거리 내에 좀비가 있는지 확인
             {
-                currentWeapon?.Using(target); // 좀비가 있을 경우 무기 발사
+                print("좀비 탐지 됨");
+                currentWeapon?.Using(m_target); // 좀비가 있을 경우 무기 발사
+                m_animator.SetBool("Attack", true);
+            }
+            else
+            {
+                m_animator.SetBool("Attack", false);
             }
             yield return new WaitForSecondsRealtime(currentWeapon.FireRate);
         }
@@ -52,7 +59,7 @@ public class PlayerWeapon : MonoBehaviour
             // 45도 범위 내에서 정면에 위치한 좀비만 공격
             if (angle < 45f)
             {
-                target = hitCollider.GetComponent<Character>();
+                m_target = hitCollider.GetComponent<Character>();
                 return true;
             }
         }
