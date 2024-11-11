@@ -5475,6 +5475,7 @@ GameObject:
   - component: {fileID: 1222202039194899662}
   - component: {fileID: 3583121264643729897}
   - component: {fileID: 5142329604028324432}
+  - component: {fileID: 2534975124707107712}
   m_Layer: 11
   m_Name: Zombie_Bellboy_Male_01
   m_TagString: Untagged
@@ -5598,7 +5599,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5929356330664432952}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc07be29ddc3eb34d9bd209092cc8288, type: 3}
   m_Name: 
@@ -5635,6 +5636,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
+--- !u!114 &2534975124707107712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929356330664432952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc64dff46b805740a2d2cbfde88f166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  attackPower: 1
+  attackRange: 1
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 5120
+  Team: 1
+  baseTarget: {fileID: 0}
+  m_moveSupportCount: 0
 --- !u!1 &5933635393039660695
 GameObject:
   m_ObjectHideFlags: 0

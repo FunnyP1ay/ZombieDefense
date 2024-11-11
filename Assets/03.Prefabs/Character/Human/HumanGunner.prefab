@@ -6354,6 +6354,7 @@ GameObject:
   - component: {fileID: -5239708381899303373}
   - component: {fileID: -801559158817097247}
   - component: {fileID: 8051940767993356953}
+  - component: {fileID: 6131654742811530728}
   m_Layer: 10
   m_Name: HumanGunner
   m_TagString: Untagged
@@ -6428,7 +6429,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4205417445109852322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81b157420209a2d47b89d3a744a8bebb, type: 3}
   m_Name: 
@@ -6466,6 +6467,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
+--- !u!114 &6131654742811530728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205417445109852322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a29de61f3e4c44794d6dd2d19a9de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  attackPower: 1
+  attackRange: 5
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 6144
+  Team: 0
+  moveTarget: {fileID: 0}
+  fireEffect: {fileID: 7898476237733362194}
+  state: 0
 --- !u!1 &4290526260006941291
 GameObject:
   m_ObjectHideFlags: 0
