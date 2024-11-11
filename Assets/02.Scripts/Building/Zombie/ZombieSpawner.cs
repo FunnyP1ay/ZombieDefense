@@ -16,11 +16,8 @@ public class ZombieSpawner : CharacterSpawner
             yield return m_twoSeccond;
             if (GameManager.Instance.zombieCityData != null && GameManager.Instance.zombieCityData.ZombieCount < 200)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    Character zombie = base.CharacterSpawn();
-                    ZombieSetting(zombie);
-                }
+                Character zombie = base.CharacterSpawn();
+                ZombieSetting(zombie);
             }
 
         }

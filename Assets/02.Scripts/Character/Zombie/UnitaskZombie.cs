@@ -67,7 +67,7 @@ public class UnitaskZombie : Character
             Collider[] colliders = Physics.OverlapSphere(transform.position, m_detectionRadius, targetLayer);
             if (colliders.Length > 0)
             {
-                int randnum = Random.Range(0, colliders.Length);
+                int randnum = Random.Range(0, colliders.Length); 
                 target = colliders[randnum].gameObject;
                 agent.SetDestination(target.transform.position);
             }
@@ -77,7 +77,7 @@ public class UnitaskZombie : Character
     public void MoveSupport()
     {
         m_moveSupportCount++;
-        if (m_moveSupportCount > 3)
+        if (m_moveSupportCount > 4)
         {
             target = null;
             m_moveSupportCount = 0;

@@ -39,7 +39,6 @@ public class UnitaskGunnerHuman : Character
         state = State.Move;
         m_currentTime = Time2;
         m_animator.SetBool("Attack", false);
-
         _cancellationTokenSource = new CancellationTokenSource();
         AIStateAsync(_cancellationTokenSource.Token).Forget(); // 비동기 메서드 실행
     }
