@@ -26,7 +26,7 @@ public class HumanSpawner : CharacterSpawner
     }
     private void HumanSetting(Character gunnerHuman)
     {
-        gunnerHuman.GetComponent<GunnerHuman>();
+        gunnerHuman.GetComponent<UnitaskGunnerHuman>();
         gunnerHuman.health += GameManager.Instance.playerCityData.HealthLevel;
         gunnerHuman.attackPower += GameManager.Instance.playerCityData.AttackLevel;
         gunnerHuman.RespawnSetting();

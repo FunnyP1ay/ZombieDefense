@@ -13,7 +13,7 @@ public class UnitaskZombie : Character
     public int m_moveSupportCount = 0;
     private float m_detectionRadius = 10f;
     private bool m_isDie = false;
-
+    public ParticleSystem BloodParticle;
     private CancellationTokenSource _cancellationTokenSource;
 
     private void Awake()
@@ -24,6 +24,7 @@ public class UnitaskZombie : Character
 
     public override void RespawnSetting()
     {
+        health += 5;
         baseTarget = GameManager.Instance.playerCityData.playerBase;
         m_isDie = false;
         target = null;
@@ -98,15 +99,27 @@ public class UnitaskZombie : Character
     {
         m_currentTime = Random.Range(0, 2) == 0 ? Time1 : Time2;
     }
-
+    public override void TakeDamage(float damage)
+    {
+        if (damage > 0)
+        {
+            print("파티클");
+            BloodParticle.Play();
+        }
+        base.TakeDamage(damage);
+    }
     protected override void Die()
     {
         if (!m_isDie)
         {
             m_isDie = true;
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
-
+            // _cancellationTokenSource가 이미 Dispose 되었는지 확인 후 취소
+            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null; // 중복 호출 방지를 위해 null로 설정
+            }
             agent.ResetPath();
             target = null;
             GameManager.Instance.zombieCityData.ZombieCountUpdate(-1);
@@ -114,9 +127,4 @@ public class UnitaskZombie : Character
         }
     }
 
-    private void OnDisable()
-    {
-        _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource?.Dispose();
-    }
 }

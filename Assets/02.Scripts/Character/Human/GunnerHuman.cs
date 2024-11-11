@@ -27,6 +27,7 @@ public class GunnerHuman : Character
     }
     public override void RespawnSetting()
     {
+        health += 5;
         m_isDie = false;
         target = null;
         moveTarget = null;

@@ -62,7 +62,7 @@ public class Zombie : Character
     public void MoveSupport()
     {
         m_moveSupportCount++;
-        if (m_moveSupportCount > 3 && target ==null)
+        if (m_moveSupportCount > 3)
         {
             target = null;
             m_moveSupportCount = 0;

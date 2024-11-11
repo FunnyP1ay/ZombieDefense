@@ -24,7 +24,7 @@ public class ZombieSpawner : CharacterSpawner
     }
     private void ZombieSetting(Character zombie)
     {
-        zombie = zombie.GetComponent<Zombie>();
+        zombie = zombie.GetComponent<UnitaskZombie>();
         zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
         zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
         zombie.RespawnSetting();

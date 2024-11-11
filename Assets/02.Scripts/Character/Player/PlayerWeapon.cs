@@ -57,7 +57,7 @@ public class PlayerWeapon : MonoBehaviour
             float angle = Vector3.Angle(transform.forward, directionToZombie);
 
             // 45도 범위 내에서 정면에 위치한 좀비만 공격
-            if (angle < 45f)
+            if (angle < 25f)
             {
                 m_target = hitCollider.GetComponent<Character>();
                 return true;

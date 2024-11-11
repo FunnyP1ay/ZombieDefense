@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
 
         
     }
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         // 데미지를 입었습니다.
         health -= damage;

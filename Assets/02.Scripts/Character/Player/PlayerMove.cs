@@ -65,6 +65,7 @@ public class PlayerMove : Character
         // 마우스 오른쪽 클릭을 누르면 마우스 위치를 바라보게 함
         if (Input.GetMouseButton(1)) // 오른쪽 마우스 버튼
         {
+            m_animator.SetBool("IsAim", true);
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z; // 플레이어의 z값을 설정해줍니다.
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition); // 화면상의 마우스 위치를 월드 좌표로 변환
@@ -74,6 +75,10 @@ public class PlayerMove : Character
             direction.y = 0; // y축 회전만 반영하도록 설정
             Quaternion lookRotation = Quaternion.LookRotation(direction); // 마우스 방향으로 회전
             m_rigidbody.rotation = lookRotation;
+        }
+        else
+        {
+            m_animator.SetBool("IsAim", false);
         }
     }
 }
