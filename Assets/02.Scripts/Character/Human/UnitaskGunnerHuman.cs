@@ -141,9 +141,13 @@ public class UnitaskGunnerHuman : Character
         if (!m_isDie)
         {
             m_isDie = true;
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
-
+            // _cancellationTokenSource가 이미 Dispose 되었는지 확인 후 취소
+            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null; // 중복 호출 방지를 위해 null로 설정
+            }
             agent.ResetPath();
             target = null;
             GameManager.Instance.playerCityData.PlayerTeamCountUpdate(-1);
@@ -151,9 +155,4 @@ public class UnitaskGunnerHuman : Character
         }
     }
 
-    private void OnDisable()
-    {
-        _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource?.Dispose();
-    }
 }
