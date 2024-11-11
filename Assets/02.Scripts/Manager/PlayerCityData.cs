@@ -20,4 +20,9 @@ public class PlayerCityData : MonoBehaviour
         PlayerTeamCount += value;
         UI_PlayerTeamCount.text = PlayerTeamCount.ToString();
     }
+    public void GiveCityMoney() 
+    {
+        CityMoney += 50;
+    }
+
 }
