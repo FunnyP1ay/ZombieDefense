@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Farm
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - PlayerTeam
   - Zombie
   - EnemyHuman
-  - 
-  - 
-  - 
+  - Farm
+  - Building
+  - FarmArea
   - 
   - 
   - 

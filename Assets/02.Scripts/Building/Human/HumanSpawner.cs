@@ -3,19 +3,8 @@ using System.Collections;
 
 public class HumanSpawner : CharacterSpawner
 {
-    private void OnEnable()
-    {
-        StartCoroutine(SpawnHuman());
-    }
-    private IEnumerator SpawnHuman()
-    {
-        while (true)
-        {
-            CityMoneyCheck();
-            yield return new WaitForSeconds(2f);
-        }
-    }
-    private void CityMoneyCheck()
+
+    public void SpawnGunner()
     {
         if (GameManager.Instance.playerCityData != null && GameManager.Instance.playerCityData.CityMoney >= 50)
         {
@@ -32,8 +21,5 @@ public class HumanSpawner : CharacterSpawner
         gunnerHuman.RespawnSetting();
         GameManager.Instance.playerCityData.PlayerTeamCountUpdate(1);
     }
-    private void OnDisable()
-    {
-        StopCoroutine(SpawnHuman());
-    }
+
 }
