@@ -1,0 +1,40 @@
+{
+    "name": "InGame",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "57098a21-ba0a-4223-a75a-155c6660f152",
+            "actions": [
+                {
+                    "name": "Tab",
+                    "type": "Button",
+                    "id": "0e4a5cda-a8a4-4aa2-8b20-9938f8cd9f5e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b25ffc45-ebd0-43e7-b6d3-91ab7e3deb57",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": []
+        }
+    ]
+}

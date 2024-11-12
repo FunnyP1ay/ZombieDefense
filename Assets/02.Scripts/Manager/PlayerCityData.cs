@@ -6,9 +6,13 @@ public class PlayerCityData : MonoBehaviour
 {
     public GameObject playerBase;
     public List<GameObject> wayPointList;
+    [Header("도시 자원 현황")]
     public int CityMoney = 0;
+    public int FoodCount = 0;
+    [Header("도시 유닛 업그레이드 현황")]
     public int HealthLevel = 0;
     public int AttackLevel = 0;
+    [Header("도시 방어 유닛 수")]
     public int PlayerTeamCount = 0;
     public TMP_Text UI_PlayerTeamCount;
     private void Awake()
