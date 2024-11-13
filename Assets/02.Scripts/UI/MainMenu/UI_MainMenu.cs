@@ -9,4 +9,8 @@ public class UI_MainMenu : MonoBehaviour
     {
         InfinityWaveGameButton.onClick.AddListener(() => SceneManager.LoadScene("InfinityWaveGame"));
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
