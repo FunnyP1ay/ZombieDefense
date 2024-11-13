@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 public class UI_InGame : MonoBehaviour
 {
     public GameObject tabPanel;
+    public GameObject escPanel;
     private Animator tabPanelAnimator;
+
     public InputActionAsset inputActions; // 인스펙터에서 참조할 InputActionAsset
-    private InputAction inputAction;
+    private InputAction tabAction;
+    private InputAction escAction;
 
     [Header("농장 버튼들")]
     public Button Tier1FarmButton;
@@ -39,10 +42,14 @@ public class UI_InGame : MonoBehaviour
     {
         // "Player" Action Map에서 "Tab" 액션 가져오기
         var actionMap = inputActions.FindActionMap("Player", true);
-        inputAction = actionMap.FindAction("Tab", true);
 
-        inputAction.performed += TogglePanel;
-        inputAction.Enable();
+        tabAction = actionMap.FindAction("Tab", true);
+        tabAction.performed += ToggleTabPanel;
+        tabAction.Enable();
+
+        escAction = actionMap.FindAction("Esc", true);
+        escAction.performed += ToggleEscPanel;
+        escAction.Enable();
     }
     private void Start()
     {
@@ -80,10 +87,14 @@ public class UI_InGame : MonoBehaviour
 
         }
     }
-    private void TogglePanel(InputAction.CallbackContext context)
+    private void ToggleTabPanel(InputAction.CallbackContext context)
     {
         tabPanel.SetActive(!tabPanel.activeSelf);
         tabPanelAnimator.SetTrigger("IsTab");
+    }
+    private void ToggleEscPanel(InputAction.CallbackContext context)
+    {
+        escPanel.SetActive(!escPanel.activeSelf);
     }
     private void CreateFarmPrefab(FarmAsset prefab)
     {
@@ -104,7 +115,10 @@ public class UI_InGame : MonoBehaviour
 
     private void OnDisable()
     {
-        inputAction.Disable();
-        inputAction.performed -= TogglePanel;
+        tabAction.performed -= ToggleTabPanel;
+        tabAction.Disable();
+
+        escAction.performed -= ToggleEscPanel;
+        escAction.Disable();
     }
 }
