@@ -5,7 +5,9 @@ public class FarmAsset : MonoBehaviour
     public bool isBuildArea = true;
     public bool BuildFinish = false;
     [Header("자원 증가 수치")]
-    public int FoodValue = 1;
+    public int MoneyValue = 1;
+    [Header("설치비용")]
+    public int BuildPrice;
     public LayerMask CanNotBuildLayer; // 설치 불가 레이어
     public LayerMask BuildLayer;
     public ParticleSystem BuildEffect;
@@ -64,6 +66,7 @@ public class FarmAsset : MonoBehaviour
             Destroy(rb);
         }
         farmObject.BuildEffect.Play();
-        GameManager.Instance.playerCityData.CityTax += FoodValue;
+        GameManager.Instance.playerCityData.PlayerTaxUpdate(MoneyValue);
+        GameManager.Instance.playerCityData.UsingMoney(BuildPrice);
     }
 }

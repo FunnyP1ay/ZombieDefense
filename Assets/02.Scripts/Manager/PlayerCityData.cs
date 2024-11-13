@@ -10,16 +10,18 @@ public class PlayerCityData : MonoBehaviour
     [Header("도시 자원 현황")]
     public int CityMoney = 0;
     public int FoodCount = 0;
+    public TMP_Text UI_CityMoney;
     [Header("도시 수입")]
     public int CityTax = 0;
+    public TMP_Text UI_CityTax;
     [Header("도시 유닛 업그레이드 현황")]
     public int HealthLevel = 0;
     public int AttackLevel = 0;
     [Header("도시 방어 유닛 수")]
     public int PlayerTeamCount = 0;
-    public TMP_Text UI_PlayerTeamCount;
-
+    public TMP_Text UI_CityUnitCount;
     private bool isRunning = true;
+
     private void Awake()
     {
         GameManager.Instance.playerCityData = this;
@@ -34,17 +36,33 @@ public class PlayerCityData : MonoBehaviour
         {
             await UniTask.Delay(2000); 
             CityMoney += CityTax;
+            UIUpdate(CityMoney, UI_CityMoney);
         }
     }
     public void PlayerTeamCountUpdate(int value)
     {
         PlayerTeamCount += value;
-        UI_PlayerTeamCount.text = PlayerTeamCount.ToString();
+        UIUpdate(PlayerTeamCount, UI_CityUnitCount);
     }
-    public void GiveCityMoney() 
+    public void UsingMoney(int value)
     {
-        CityMoney += 50;
+        CityMoney -= value;
+        UIUpdate(CityMoney, UI_CityMoney);
     }
+    public void PlayerTaxUpdate(int value)
+    {
+        CityTax += value;
+        UIUpdate(CityTax, UI_CityTax);
+    }
+    public void UIUpdate(int value, TMP_Text UItext)
+    {
+        UItext.text = value.ToString();
+    }
+    public void UIUpdate(float value, TMP_Text UItext)
+    {
+        UItext.text = value.ToString();
+    }
+
     private void OnDisable()
     {
         isRunning = false; // 루프 종료

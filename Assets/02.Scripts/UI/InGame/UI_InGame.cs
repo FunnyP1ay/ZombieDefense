@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Lean.Pool;
+using UnityEngine.SceneManagement;
 
 public class UI_InGame : MonoBehaviour
 {
@@ -27,8 +28,13 @@ public class UI_InGame : MonoBehaviour
     public FarmAsset Tier2Tree;
     public FarmAsset RandomTree;
     public FarmAsset currentPrefab;
-
+    [Header("게임 패배 패널")]
+    public GameObject UI_GameLose;
     public LayerMask FarmBuildLayer;
+    private void Awake()
+    {
+        GameManager.Instance.UI_InGame = this;
+    }
     private void OnEnable()
     {
         // "Player" Action Map에서 "Tab" 액션 가져오기
@@ -41,12 +47,13 @@ public class UI_InGame : MonoBehaviour
     private void Start()
     {
         tabPanelAnimator = tabPanel.GetComponent<Animator>();
-        Tier1FarmButton.onClick.AddListener(() => CreatePrefab(Tier1Farm));
-        Tier2FarmButton.onClick.AddListener(() => CreatePrefab(Tier2Farm));
-        RandomFarmButton.onClick.AddListener(() => CreatePrefab(RandomFarm));
-        Tier1TreeButton.onClick.AddListener(() => CreatePrefab(Tier1Tree));
-        Tier2TreeButton.onClick.AddListener(() => CreatePrefab(Tier2Tree));
-        RandomTreeButton.onClick.AddListener(() => CreatePrefab(RandomTree));
+        Tier1FarmButton.onClick.AddListener(() => CreateFarmPrefab(Tier1Farm));
+        Tier2FarmButton.onClick.AddListener(() => CreateFarmPrefab(Tier2Farm));
+        RandomFarmButton.onClick.AddListener(() => CreateFarmPrefab(RandomFarm));
+       // Tier1TreeButton.onClick.AddListener(() => CreateFarmPrefab(Tier1Tree));
+       // Tier2TreeButton.onClick.AddListener(() => CreateFarmPrefab(Tier2Tree));
+       // RandomTreeButton.onClick.AddListener(() => CreateFarmPrefab(RandomTree));
+
     }
     private void Update()
     {
@@ -78,13 +85,21 @@ public class UI_InGame : MonoBehaviour
         tabPanel.SetActive(!tabPanel.activeSelf);
         tabPanelAnimator.SetTrigger("IsTab");
     }
-    private void CreatePrefab(FarmAsset prefab)
+    private void CreateFarmPrefab(FarmAsset prefab)
     {
-        if (currentPrefab == null)
+        if (currentPrefab == null&& prefab.BuildPrice<GameManager.Instance.playerCityData.CityMoney)
         {
             GameObject spawnedObject = LeanPool.Spawn(prefab.gameObject);
             currentPrefab = spawnedObject.GetComponent<FarmAsset>();
         }
+    }
+    public void GameLose()
+    {
+        UI_GameLose.SetActive(true);
+    }
+    public void MainMenuLoad()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnDisable()

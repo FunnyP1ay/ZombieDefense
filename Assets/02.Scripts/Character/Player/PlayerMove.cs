@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerMove : Character
 {
     [SerializeField] private float m_speed = 2f; // 이동 속도
     private Rigidbody m_rigidbody;
+
+    [Header("플레이어 체력UI")]
+    public TMP_Text UI_PlayerHP;
 
     private void Start()
     {
@@ -80,5 +84,20 @@ public class PlayerMove : Character
         {
             m_animator.SetBool("IsAim", false);
         }
+    }
+    public override void TakeDamage(float damage)
+    {
+        // 데미지를 입었습니다.
+        health -= damage;
+        GameManager.Instance.playerCityData.UIUpdate(health, UI_PlayerHP);
+        if (health <= 0)
+        {
+            GameLose();
+        }
+
+    }
+    public void GameLose()
+    {
+        GameManager.Instance.UI_InGame.GameLose();
     }
 }

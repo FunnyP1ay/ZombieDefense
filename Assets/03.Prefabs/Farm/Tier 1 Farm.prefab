@@ -14472,7 +14472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBuildArea: 1
   BuildFinish: 0
-  FoodValue: 1
+  MoneyValue: 1
+  BuildPrice: 50
   CanNotBuildLayer:
     serializedVersion: 2
     m_Bits: 24576

@@ -8,7 +8,7 @@ public class HumanSpawner : CharacterSpawner
     {
         if (GameManager.Instance.playerCityData != null && GameManager.Instance.playerCityData.CityMoney >= 50)
         {
-            GameManager.Instance.playerCityData.CityMoney -= 50;
+            GameManager.Instance.playerCityData.UsingMoney(50);
             Character gunnerHuman = base.CharacterSpawn();
             HumanSetting(gunnerHuman);
         }
