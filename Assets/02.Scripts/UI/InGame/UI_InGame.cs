@@ -55,23 +55,22 @@ public class UI_InGame : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, FarmBuildLayer))
             {
-                currentPrefab.transform.position = hit.point;
+                currentPrefab.transform.position = hit.point ;
             }
-            if (Input.GetMouseButtonDown(0))
+            // 설치 가능 여부 확인
+            if (currentPrefab.CheckBuildArea() && Input.GetMouseButtonDown(0))
             {
-                if (currentPrefab.isBuildArea)
-                {
-                    currentPrefab.BuildObject(currentPrefab);
-                    LeanPool.Despawn(currentPrefab.gameObject);
-                    currentPrefab = null;
-                }
-                else
-                {
-                    LeanPool.Despawn(currentPrefab.gameObject);
-                    currentPrefab = null;
-                    print("건설불가");
-                }
+                currentPrefab.BuildObject(currentPrefab);
+                LeanPool.Despawn(currentPrefab.gameObject);
+                currentPrefab = null;
             }
+            else if (!currentPrefab.isBuildArea && Input.GetMouseButtonDown(0))
+            {
+                LeanPool.Despawn(currentPrefab.gameObject);
+                currentPrefab = null;
+                print("건설불가");
+            }
+
         }
     }
     private void TogglePanel(InputAction.CallbackContext context)

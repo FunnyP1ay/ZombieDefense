@@ -8,56 +8,62 @@ public class FarmAsset : MonoBehaviour
     public int FoodValue = 1;
     public LayerMask CanNotBuildLayer; // 설치 불가 레이어
     public LayerMask BuildLayer;
-    Renderer renderer;
-    Color color;
+    public ParticleSystem BuildEffect;
+    private Renderer renderer;
+    private Color originalColor;
+
+    // 설치 불가 감지 반경
+    public float checkRadius = 1f;
 
     private void OnEnable()
     {
         BuildFinish = false;
-    }
-
-    private void Start()
-    {
         renderer = GetComponent<Renderer>();
-        color = renderer.material.color;
+        originalColor = renderer.material.color;
     }
 
-    private void OnTriggerStay(Collider other)
+    public bool CheckBuildArea()
     {
-        if (BuildFinish == false)
+        // 설치 가능 여부를 초기화
+        isBuildArea = true;
+
+        // 반경 내 설치 불가 오브젝트가 있는지 확인
+        Collider[] colliders = Physics.OverlapSphere(renderer.bounds.center, checkRadius, CanNotBuildLayer);
+        if (colliders.Length > 1)
         {
-            // 충돌한 오브젝트의 레이어가 CanNotBuildLayer에 포함되어 있는지 체크
-            if ((CanNotBuildLayer.value & (1 << other.gameObject.layer)) != 0)
-            {
-                print($"지을 수 없는 곳 (Layer: {other.gameObject.layer})");
-                color = Color.red;
-                color.a = 0.5f;
-                isBuildArea = false;
-                renderer.material.color = color;
-            }
-            else
-            {
-                print($"지을 수 있는 곳 (Layer: {other.gameObject.layer})");
-                color = Color.white;
-                color.a = 0.5f;
-                isBuildArea = true;
-                renderer.material.color = color;
-            }
+            isBuildArea = false;
+            SetMaterialColor(Color.red, 0.5f);
         }
+        else
+        {
+            SetMaterialColor(Color.green, 0.5f);
+        }
+        print(colliders.Length);
+
+        return isBuildArea;
+    }
+
+    private void SetMaterialColor(Color color, float alpha)
+    {
+        color.a = alpha;
+        renderer.material.color = color;
     }
 
     public virtual void BuildObject(FarmAsset prefab)
     {
         FarmAsset farmObject = Instantiate(prefab);
-        Renderer farmObjectrenderer = farmObject.GetComponent<Renderer>();
-        Color color = farmObjectrenderer.material.color;
+        Renderer farmObjectRenderer = farmObject.GetComponent<Renderer>();
+        Color color = farmObjectRenderer.material.color;
         color.a = 1;
+        farmObjectRenderer.material.color = color;
         farmObject.BuildFinish = true;
         Rigidbody rb = farmObject.GetComponent<Rigidbody>();
+        farmObject.GetComponent<Collider>().isTrigger = false;
         if (rb != null)
         {
             Destroy(rb);
         }
+        farmObject.BuildEffect.Play();
         GameManager.Instance.playerCityData.CityTax += FoodValue;
     }
 }
