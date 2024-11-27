@@ -16,7 +16,7 @@ public class PlayerMove : Character
         m_animator = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Move(); // WASD∑Œ ¿Ãµø
     }

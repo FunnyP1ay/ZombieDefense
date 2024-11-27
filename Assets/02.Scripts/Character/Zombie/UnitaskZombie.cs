@@ -47,9 +47,8 @@ public class UnitaskZombie : Character
                 await UniTask.Delay((int)(m_currentTime * 1000), cancellationToken: cancellationToken);
             }
         }
-        catch
+        catch 
         {
-            // 코루틴이 취소되었을 때의 처리
         }
     }
 
@@ -78,7 +77,7 @@ public class UnitaskZombie : Character
     public void MoveSupport()
     {
         m_moveSupportCount++;
-        if (m_moveSupportCount > 4)
+        if (m_moveSupportCount > 8)
         {
             target = null;
             m_moveSupportCount = 0;
@@ -103,7 +102,6 @@ public class UnitaskZombie : Character
     {
         if (damage > 0)
         {
-            print("파티클");
             BloodParticle.Play();
         }
         base.TakeDamage(damage);

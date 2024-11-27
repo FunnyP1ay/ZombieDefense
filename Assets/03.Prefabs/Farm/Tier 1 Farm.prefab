@@ -14473,7 +14473,7 @@ MonoBehaviour:
   isBuildArea: 1
   BuildFinish: 0
   MoneyValue: 1
-  BuildPrice: 50
+  BuildPrice: 500
   CanNotBuildLayer:
     serializedVersion: 2
     m_Bits: 24576
