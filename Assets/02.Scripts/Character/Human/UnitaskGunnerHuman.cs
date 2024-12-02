@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class UnitaskGunnerHuman : Character
 {
     private static readonly float Time1 = 1f;
-    private static readonly float Time2 = 1.1f;
+    private static readonly float Time2 = 1.21f;
     private static readonly float AttackTime = 0.5f;
     private float m_currentTime;
 
@@ -63,7 +63,7 @@ public class UnitaskGunnerHuman : Character
                 await UniTask.Delay((int)(m_currentTime * 1000), cancellationToken: cancellationToken);
             }
         }
-        catch 
+        catch
         {
             // 코루틴이 취소되었을 때의 처리 (필요 시)
         }
@@ -100,20 +100,24 @@ public class UnitaskGunnerHuman : Character
             if (colliders.Length > 0)
             {
                 state = State.Attack;
+                int randnum = Random.Range(0, colliders.Length);
+                target = colliders[randnum].gameObject;
+                target.GetComponent<Character>().TakeDamage(attackPower);
+                agent.ResetPath();
+                transform.LookAt(target.transform);
                 agent.speed = 0;
                 fireEffect.Play();
                 m_animator.SetBool("Attack", true);
                 moveTarget = null;
                 m_currentTime = AttackTime;
 
-                int randnum = Random.Range(0, colliders.Length);
-                target = colliders[randnum].gameObject;
             }
             else
             {
                 state = State.Move;
                 agent.speed = 3.5f;
                 m_animator.SetBool("Attack", false);
+                CheckMove();
             }
         }
     }
@@ -128,6 +132,13 @@ public class UnitaskGunnerHuman : Character
             fireEffect.Play();
             m_animator.SetBool("Attack", true);
             base.Attack();
+        }
+        else
+        {
+            state = State.Move;
+            agent.speed = 3.5f;
+            m_animator.SetBool("Attack", false);
+            CheckMove();
         }
     }
 
