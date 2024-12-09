@@ -10,6 +10,7 @@ public class UnitaskZombie : Character
     private float m_currentTime;
     private NavMeshAgent agent;
     public GameObject baseTarget;
+    public GameObject DiePrefab;
     public int m_moveSupportCount = 0;
     private float m_detectionRadius = 10f;
     private bool m_isDie = false;

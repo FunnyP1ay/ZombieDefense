@@ -11,5 +11,9 @@ public class Bullet : MonoBehaviour
             print($"{character.name}에게 데미지 {Damage}를 줬습니다!");
             Lean.Pool.LeanPool.Despawn(gameObject);
         }
+        else
+        {
+            Lean.Pool.LeanPool.Despawn(gameObject);
+        }
     }
 }
