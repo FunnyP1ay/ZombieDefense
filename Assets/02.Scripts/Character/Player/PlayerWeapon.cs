@@ -1,68 +1,59 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class PlayerWeapon : MonoBehaviour
 {
     private Animator m_animator;
-    private Coroutine m_fireCoroutine;
-    private Character m_target;
-    public LayerMask enemyLayer;
+    public LayerMask enemyLayer; // 적 레이어 설정
     public Weapon currentWeapon;
+
+    private Coroutine fireCoroutine; // 발사 코루틴을 저장하는 변수
+    private float lastFireTime; // 마지막 발사 시점
+
     private void Start()
     {
         m_animator = GetComponent<Animator>();
-        EquipWeapon();
     }
 
-    // 무기 장착 및 발사 시작
-    public void EquipWeapon()
+    private void Update()
     {
-
-        if (m_fireCoroutine != null)
+        // 마우스 왼쪽 버튼을 누르면 발사 코루틴 시작
+        if (Input.GetMouseButtonDown(0) && fireCoroutine == null)
         {
-            StopCoroutine(m_fireCoroutine);
+            fireCoroutine = StartCoroutine(FireContinuously());
         }
-        m_fireCoroutine = StartCoroutine(FireWeaponRoutine());
 
+        // 마우스 왼쪽 버튼을 떼면 발사 코루틴 중지
+        if (Input.GetMouseButtonUp(0))
+        {
+            StopFireCoroutine();
+        }
     }
 
-    //발사 루틴(좀비 탐지 후 발사)
-    private IEnumerator FireWeaponRoutine()
+    private IEnumerator FireContinuously()
     {
         while (true)
         {
-            if (IsEnemyInRange()) // 일정 거리 내에 좀비가 있는지 확인
+            float timeSinceLastFire = Time.time - lastFireTime;
+
+            // FireRate보다 빨리 발사되지 않도록 시간 검사
+            if (timeSinceLastFire >= currentWeapon.FireRate)
             {
-                print("좀비 탐지 됨");
-                currentWeapon?.Using(m_target); // 좀비가 있을 경우 무기 발사
-                m_animator.SetBool("Attack", true);
+                lastFireTime = Time.time; // 발사 시간 갱신
+                currentWeapon.Using(transform);
+                m_animator.SetTrigger("Attack"); // 공격 애니메이션
             }
-            else
-            {
-                m_animator.SetBool("Attack", false);
-            }
-            yield return new WaitForSecondsRealtime(currentWeapon.FireRate);
+
+            yield return null; // 매 프레임 검사
         }
     }
 
-    //일정 거리 내에 좀비가 있는지 확인하는 함수
-    private bool IsEnemyInRange()
+    private void StopFireCoroutine()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, currentWeapon.detectionRange, enemyLayer);
-        foreach (var hitCollider in hitColliders)
+        if (fireCoroutine != null)
         {
-
-            Vector3 directionToZombie = (hitCollider.transform.position - transform.position).normalized;
-            float angle = Vector3.Angle(transform.forward, directionToZombie);
-
-            // 45도 범위 내에서 정면에 위치한 좀비만 공격
-            if (angle < 25f)
-            {
-                m_target = hitCollider.GetComponent<Character>();
-                return true;
-            }
+            StopCoroutine(fireCoroutine); // 코루틴 중지
+            fireCoroutine = null; // 참조 초기화
         }
-        return false;
     }
 }
