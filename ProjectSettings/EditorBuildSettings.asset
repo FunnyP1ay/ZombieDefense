@@ -12,5 +12,6 @@ EditorBuildSettings:
     path: Assets/01.Scenes/InfinityWaveGame.unity
     guid: c6e4937d473adce4ba1f6995b211e6ff
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: a9c8cac78b7c7ff40b346ab9ea390f85, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
