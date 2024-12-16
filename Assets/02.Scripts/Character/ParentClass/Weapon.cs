@@ -9,17 +9,17 @@ public  class Weapon : MonoBehaviour
     public float FireRate;
     public float Damage;
     public Transform FirePosition;
-    public ParticleSystem FireEffect;
+    public ParticleSystem UsingEffect;
     public Bullet bulletPrefab; // ÅºÈ¯ ÇÁ¸®ÆÕ
     public float bulletSpeed = 10f;
 
 
     public virtual void Using(Transform player)
     {
-        ShootBullet(player);
-        FireEffect.Play();
+        UsingEvent(player);
+        UsingEffect.Play();
     }
-    private void ShootBullet(Transform player)
+    public virtual void UsingEvent(Transform player)
     {
         Quaternion bulletRotation = Quaternion.LookRotation(FirePosition.forward);
         Bullet bullet = LeanPool.Spawn(bulletPrefab, FirePosition.position, bulletRotation);
