@@ -55,7 +55,6 @@ public class UnitaskZombie : Character
 
     public override void Move()
     {
-        //MoveSupport();
         SettingTarget();
         Attack();
         NextCoroutineTime();
@@ -77,16 +76,6 @@ public class UnitaskZombie : Character
                 print("좀비가 그냥 기지로 돌격합니다.");
                 agent.SetDestination(baseTarget.transform.position);
             }
-        }
-    }
-    public void MoveSupport()
-    {
-        m_moveSupportCount++;
-        if (m_moveSupportCount > 8)
-        {
-            target = null;
-            m_moveSupportCount = 0;
-            agent.SetDestination(baseTarget.transform.position);
         }
     }
 

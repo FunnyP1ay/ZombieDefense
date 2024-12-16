@@ -8,7 +8,6 @@ public  class Weapon : MonoBehaviour
 {
     public float FireRate;
     public float Damage;
-    public float detectionRange = 10f;  // Å½Áö °Å¸®
     public Transform FirePosition;
     public ParticleSystem FireEffect;
     public Bullet bulletPrefab; // ÅºÈ¯ ÇÁ¸®ÆÕ
