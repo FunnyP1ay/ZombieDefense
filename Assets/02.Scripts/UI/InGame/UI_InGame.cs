@@ -34,6 +34,9 @@ public class UI_InGame : MonoBehaviour
     [Header("게임 패배 패널")]
     public GameObject UI_GameLose;
     public LayerMask FarmBuildLayer;
+    [Header("플레이어 정보")]
+    public Image WeaponImage;
+
     private void Awake()
     {
         GameManager.Instance.UI_InGame = this;

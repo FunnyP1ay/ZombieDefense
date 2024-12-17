@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
+using UnityEngine.UI;
 
 public  class Weapon : MonoBehaviour
 {
     public float FireRate;
     public float Damage;
+    public Sprite WeaponImage;
     public Transform FirePosition;
     public ParticleSystem UsingEffect;
     public Bullet bulletPrefab; // ÅºÈ¯ ÇÁ¸®ÆÕ
