@@ -7,7 +7,7 @@ public class PlayerWeapon : MonoBehaviour
     public Weapon currentWeapon;
     public Weapon weapon1; // 무기 1
     public Weapon weapon2; // 무기 2
-
+    public bool isGun = true;
     private Coroutine fireCoroutine; // 발사 코루틴을 저장하는 변수
     private float lastFireTime; // 마지막 발사 시점
 
@@ -41,12 +41,14 @@ public class PlayerWeapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchWeapon(weapon1);
+            isGun = true;
         }
 
         // 2번 키를 눌렀을 때 무기 2로 변경
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWeapon(weapon2);
+            isGun = false;
         }
     }
 
@@ -69,7 +71,10 @@ public class PlayerWeapon : MonoBehaviour
             {
                 lastFireTime = Time.time; // 발사 시간 갱신
                 currentWeapon.Using(transform);
-                m_animator.SetTrigger("Attack"); // 공격 애니메이션
+                if (isGun)
+                    m_animator.SetTrigger("Attack");
+                else
+                    m_animator.SetTrigger("Swing");
             }
 
             yield return null; // 매 프레임 검사

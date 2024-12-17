@@ -6,7 +6,7 @@ public class PlayerMove : Character
 {
     [SerializeField] private float m_speed = 2f; // 이동 속도
     private Rigidbody m_rigidbody;
-
+    private PlayerWeapon m_weapon;
     [Header("플레이어 체력UI")]
     public TMP_Text UI_PlayerHP;
 
@@ -15,6 +15,7 @@ public class PlayerMove : Character
         GameManager.Instance.player = this;
         m_rigidbody = GetComponent<Rigidbody>();
         m_animator = GetComponent<Animator>();
+        m_weapon = GetComponent<PlayerWeapon>();
     }
 
     private void Update()
@@ -70,7 +71,10 @@ public class PlayerMove : Character
         // 마우스 오른쪽 클릭을 누르면 마우스 위치를 바라보게 함
         if (Input.GetMouseButton(1)) // 오른쪽 마우스 버튼
         {
-            m_animator.SetBool("IsAim", true);
+            if (m_weapon.isGun)
+                m_animator.SetBool("IsAim", true);
+            else
+                m_animator.SetBool("isAim", false);
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z; // 플레이어의 z값을 설정해줍니다.
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition); // 화면상의 마우스 위치를 월드 좌표로 변환

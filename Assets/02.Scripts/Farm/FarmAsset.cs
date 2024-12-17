@@ -38,7 +38,7 @@ public class FarmAsset : MonoBehaviour
         }
         else
         {
-            SetMaterialColor(Color.green, 0.5f);
+            SetMaterialColor(Color.white, 0.5f);
         }
         print(colliders.Length);
 

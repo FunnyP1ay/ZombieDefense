@@ -22,6 +22,9 @@ public class PlayerCityData : MonoBehaviour
     public TMP_Text UI_CityUnitCount;
     private bool isRunning = true;
 
+    [Header("스파이 점수")]
+    public int SPYScore = 0;
+    public TMP_Text UI_SPYScore;
     private void Awake()
     {
         GameManager.Instance.playerCityData = this;
@@ -29,6 +32,14 @@ public class PlayerCityData : MonoBehaviour
     private void Start()
     {
         StartIncrementing();
+    }
+    public void UIUpdate(int value, TMP_Text UItext)
+    {
+        UItext.text = value.ToString();
+    }
+    public void UIUpdate(float value, TMP_Text UItext)
+    {
+        UItext.text = value.ToString();
     }
     private async void StartIncrementing()
     {
@@ -39,6 +50,7 @@ public class PlayerCityData : MonoBehaviour
             UIUpdate(CityMoney, UI_CityMoney);
         }
     }
+
     public void PlayerTeamCountUpdate(int value)
     {
         PlayerTeamCount += value;
@@ -54,13 +66,10 @@ public class PlayerCityData : MonoBehaviour
         CityTax += value;
         UIUpdate(CityTax, UI_CityTax);
     }
-    public void UIUpdate(int value, TMP_Text UItext)
+    public void SPYScoreUpdate(int value)
     {
-        UItext.text = value.ToString();
-    }
-    public void UIUpdate(float value, TMP_Text UItext)
-    {
-        UItext.text = value.ToString();
+        SPYScore += value;
+        UIUpdate(SPYScore, UI_SPYScore);
     }
 
     private void OnDisable()

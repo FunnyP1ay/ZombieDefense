@@ -14,6 +14,7 @@ public class UnitaskZombie : Character
     public int m_moveSupportCount = 0;
     private float m_detectionRadius = 10f;
     private bool m_isDie = false;
+    private bool m_isPlayerTarget = false;
     public ParticleSystem BloodParticle;
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -48,7 +49,7 @@ public class UnitaskZombie : Character
                 await UniTask.Delay((int)(m_currentTime * 1000), cancellationToken: cancellationToken);
             }
         }
-        catch 
+        catch
         {
         }
     }
@@ -67,9 +68,14 @@ public class UnitaskZombie : Character
             Collider[] colliders = Physics.OverlapSphere(transform.position, m_detectionRadius, targetLayer);
             if (colliders.Length > 0)
             {
-                int randnum = Random.Range(0, colliders.Length); 
+                int randnum = Random.Range(0, colliders.Length);
                 target = colliders[randnum].gameObject;
                 agent.SetDestination(target.transform.position);
+                if (target.name == "Player")
+                    m_isPlayerTarget = true;
+                else
+                    m_isPlayerTarget = false;
+
             }
             else
             {
@@ -77,8 +83,12 @@ public class UnitaskZombie : Character
                 agent.SetDestination(baseTarget.transform.position);
             }
         }
+        else
+        {
+            if (m_isPlayerTarget)
+                agent.SetDestination(target.transform.position);
+        }
     }
-
     public override void Attack()
     {
         if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
