@@ -63,7 +63,7 @@ public class UnitaskZombie : Character
 
     public void SettingTarget()
     {
-        if (target == null || !target.activeSelf || Vector3.Distance(transform.position, target.transform.position) > 7f)
+        if (target == null || !target.activeSelf || Vector3.Distance(transform.position, target.transform.position) > m_detectionRadius)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, m_detectionRadius, targetLayer);
             if (colliders.Length > 0)
@@ -85,8 +85,7 @@ public class UnitaskZombie : Character
         }
         else
         {
-            if (m_isPlayerTarget)
-                agent.SetDestination(target.transform.position);
+            agent.SetDestination(target.transform.position);
         }
     }
     public override void Attack()

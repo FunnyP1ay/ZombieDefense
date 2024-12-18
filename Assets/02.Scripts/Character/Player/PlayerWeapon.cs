@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Cinemachine;
 public class PlayerWeapon : MonoBehaviour
 {
     private Animator m_animator;
@@ -10,10 +11,11 @@ public class PlayerWeapon : MonoBehaviour
     public bool isGun = true;
     private Coroutine fireCoroutine; // 발사 코루틴을 저장하는 변수
     private float lastFireTime; // 마지막 발사 시점
-
+    private CinemachineImpulseSource impulseSource;
     private void Start()
     {
         m_animator = GetComponent<Animator>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         currentWeapon = weapon1; // 초기 무기를 무기 1로 설정
     }
 
@@ -72,7 +74,10 @@ public class PlayerWeapon : MonoBehaviour
                 lastFireTime = Time.time; // 발사 시간 갱신
                 currentWeapon.Using(transform);
                 if (isGun)
+                {
                     m_animator.SetTrigger("Attack");
+                    impulseSource.GenerateImpulse();
+                }
                 else
                     m_animator.SetTrigger("Swing");
             }
