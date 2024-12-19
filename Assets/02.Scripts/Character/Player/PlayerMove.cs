@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : Character
 {
-    [SerializeField] private float m_speed = 2f; // ÀÌµ¿ ¼Óµµ
+    [SerializeField] private float m_speed = 2f; // ï¿½Ìµï¿½ ï¿½Óµï¿½
     private Rigidbody m_rigidbody;
     private PlayerWeapon m_weapon;
-    [Header("ÇÃ·¹ÀÌ¾î Ã¼·ÂUI")]
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã¼ï¿½ï¿½UI")]
     public TMP_Text UI_PlayerHP;
 
     private Camera mainCamera;
@@ -16,54 +16,88 @@ public class PlayerMove : Character
     {
         GameManager.Instance.player = this;
         m_rigidbody = GetComponent<Rigidbody>();
+        m_rigidbody.interpolation = RigidbodyInterpolation.Interpolate; // ï¿½Îµå·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         m_animator = GetComponent<Animator>();
         m_weapon = GetComponent<PlayerWeapon>();
         mainCamera = Camera.main;
     }
+    private void FixedUpdate()
+    {
+        Move(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FixedUpdateï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+    }
 
     private void Update()
     {
-        Move(); // WASD·Î ÀÌµ¿
-        AimAndRotate(); // È­¸é Áß¾Ó ±âÁØÀ¸·Î Á¶ÁØ ¹× È¸Àü
+        AimAndRotate(); // ï¿½Ô·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Updateï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     }
-
+    private void LateUpdate()
+    {
+        AimAndRotate(); // Ä«ï¿½Ş¶ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    }
     public override void Move()
     {
-        // WASD ÀÔ·ÂÀ» ¹ŞÀ½
-        float horizontal = Input.GetAxis("Horizontal"); // A/D
-        float vertical = Input.GetAxis("Vertical"); // W/S
-        Vector3 inputDirection = new Vector3(horizontal, 0, vertical);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 inputDirection = new Vector3(horizontal, 0, vertical).normalized;
 
-        if (inputDirection.sqrMagnitude == 0)
+        Vector3 currentVelocity = m_rigidbody.linearVelocity; // í˜„ì¬ ì†ë„ë¥¼ ê°€ì ¸ì˜´
+
+        if (inputDirection.sqrMagnitude > 0)
+        {
+            m_animator.SetFloat("Move", 1);
+            inputDirection = mainCamera.transform.TransformDirection(inputDirection);
+            inputDirection.y = 0;
+
+            // ê¸°ì¡´ì˜ Yì¶• ì†ë„ë¥¼ ìœ ì§€
+            Vector3 moveVelocity = inputDirection * m_speed;
+            moveVelocity.y = currentVelocity.y;
+
+            m_rigidbody.linearVelocity = moveVelocity;
+        }
+        else
         {
             m_animator.SetFloat("Move", 0);
-            return;
+
+            // Yì¶• ì†ë„ë§Œ ìœ ì§€, ë‚˜ë¨¸ì§€ ì†ë„ëŠ” 0
+            m_rigidbody.linearVelocity = new Vector3(0, currentVelocity.y, 0);
         }
-
-        m_animator.SetFloat("Move", 1); // ÀÏ¹İ ÀÌµ¿ ¾Ö´Ï¸ŞÀÌ¼Ç
-
-        // ÀÌµ¿ º¤ÅÍ °è»ê
-        inputDirection.Normalize();
-        inputDirection = mainCamera.transform.TransformDirection(inputDirection);
-        inputDirection.y = 0; // YÃà ÀÌµ¿ Á¦ÇÑ
-        Vector3 moveVector = inputDirection * m_speed * Time.deltaTime;
-
-        // ½ÇÁ¦ ÀÌµ¿
-        m_rigidbody.MovePosition(m_rigidbody.position + moveVector);
     }
+    //public override void Move()
+    //{
+    //    // WASD ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //    float horizontal = Input.GetAxis("Horizontal"); // A/D
+    //    float vertical = Input.GetAxis("Vertical"); // W/S
+    //    Vector3 inputDirection = new Vector3(horizontal, 0, vertical);
+
+    //    if (inputDirection.sqrMagnitude == 0)
+    //    {
+    //        m_animator.SetFloat("Move", 0);
+    //        return;
+    //    }
+
+    //    m_animator.SetFloat("Move", 1); // ï¿½Ï¹ï¿½ ï¿½Ìµï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+
+    //    // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    //    inputDirection.Normalize();
+    //    inputDirection = mainCamera.transform.TransformDirection(inputDirection);
+    //    inputDirection.y = 0; // Yï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+    //    Vector3 moveVector = inputDirection * m_speed * Time.deltaTime;
+
+    //    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+    //    m_rigidbody.MovePosition(m_rigidbody.position + moveVector);
+    //}
 
     private void AimAndRotate()
     {
-        // Ä«¸Ş¶óÀÇ Á¤¸é ¹æÇâÀ» ±âÁØÀ¸·Î È¸Àü
-        Vector3 cameraForward = mainCamera.transform.forward;
-        cameraForward.y = 0; // YÃà È¸Àü¸¸ ¹İ¿µÇÏµµ·Ï ¼³Á¤
-        cameraForward.Normalize(); // Á¤±ÔÈ­ÇÏ¿© ¹æÇâ º¤ÅÍ·Î »ç¿ë
 
-        // ÇÃ·¹ÀÌ¾îÀÇ È¸Àü ¼³Á¤
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0; 
+        cameraForward.Normalize(); 
+
         Quaternion lookRotation = Quaternion.LookRotation(cameraForward);
         m_rigidbody.rotation = lookRotation;
-        // Á¶ÁØ ¾Ö´Ï¸ŞÀÌ¼Ç ¼³Á¤
-        if (Input.GetMouseButton(1) || Input.GetMouseButton(0)) // ¸¶¿ì½º Å¬¸¯ ½Ã Á¶ÁØ »óÅÂ
+
+        if (Input.GetMouseButton(1) || Input.GetMouseButton(0)) 
         {
             if (m_weapon.isGun)
                 m_animator.SetBool("IsAim", true);
@@ -78,7 +112,7 @@ public class PlayerMove : Character
 
     public override void TakeDamage(float damage)
     {
-        // µ¥¹ÌÁö¸¦ ÀÔ¾ú½À´Ï´Ù.
+      
         health -= damage;
         GameManager.Instance.playerCityData.UIUpdate(health, UI_PlayerHP);
         if (health <= 0)
