@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public  class Weapon : MonoBehaviour
 {
@@ -38,11 +37,10 @@ public  class Weapon : MonoBehaviour
 
         // 탄환 발사
         Quaternion bulletRotation = Quaternion.LookRotation(direction);
-        Bullet bullet = LeanPool.Spawn(bulletPrefab, FirePosition.position, bulletRotation);
+        Bullet bullet = LeanPool.Spawn(bulletPrefab, FirePosition.position, bulletRotation,null);
         bullet.Damage = Damage;
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = direction * bulletSpeed; // 탄환 이동
-        Camera.main.DOShakePosition(0.5f, 1f, 10, 90, false,ShakeRandomnessMode.Full); // 카메라 흔들림
     }
 }

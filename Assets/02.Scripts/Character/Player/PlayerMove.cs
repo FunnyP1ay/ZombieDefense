@@ -8,7 +8,7 @@ public class PlayerMove : Character
     [SerializeField] private float m_speed = 2f; // �̵� �ӵ�
     private Rigidbody m_rigidbody;
     private PlayerWeapon m_weapon;
-    [Header("�÷��̾� ü��UI")]
+    [Header("플레이어 체력 UI")]
     public TMP_Text UI_PlayerHP;
 
     private Camera mainCamera;
@@ -62,31 +62,6 @@ public class PlayerMove : Character
             m_rigidbody.linearVelocity = new Vector3(0, currentVelocity.y, 0);
         }
     }
-    //public override void Move()
-    //{
-    //    // WASD �Է��� ����
-    //    float horizontal = Input.GetAxis("Horizontal"); // A/D
-    //    float vertical = Input.GetAxis("Vertical"); // W/S
-    //    Vector3 inputDirection = new Vector3(horizontal, 0, vertical);
-
-    //    if (inputDirection.sqrMagnitude == 0)
-    //    {
-    //        m_animator.SetFloat("Move", 0);
-    //        return;
-    //    }
-
-    //    m_animator.SetFloat("Move", 1); // �Ϲ� �̵� �ִϸ��̼�
-
-    //    // �̵� ���� ���
-    //    inputDirection.Normalize();
-    //    inputDirection = mainCamera.transform.TransformDirection(inputDirection);
-    //    inputDirection.y = 0; // Y�� �̵� ����
-    //    Vector3 moveVector = inputDirection * m_speed * Time.deltaTime;
-
-    //    // ���� �̵�
-    //    m_rigidbody.MovePosition(m_rigidbody.position + moveVector);
-    //}
-
     private void AimAndRotate()
     {
 
