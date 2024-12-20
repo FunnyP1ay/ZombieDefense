@@ -77,9 +77,13 @@ public class PlayerWeapon : MonoBehaviour
                 {
                     m_animator.SetTrigger("Attack");
                     impulseSource.GenerateImpulse();
+                    AudioManager.Instance.ActionSound(0);
                 }
                 else
+                {
                     m_animator.SetTrigger("Swing");
+                    AudioManager.Instance.ActionSound(1);
+                }
             }
 
             yield return null; // 매 프레임 검사
