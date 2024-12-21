@@ -31,13 +31,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Fire
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 28
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -37.63
       level: 0
       cycleOffset: 0
       loop: 0
@@ -47,7 +47,7 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -868,7 +868,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 938d09c7ab5e7b04184dfa664e0274a4, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 938d09c7ab5e7b04184dfa664e0274a4,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

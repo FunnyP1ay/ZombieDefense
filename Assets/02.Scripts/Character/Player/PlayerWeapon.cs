@@ -3,6 +3,7 @@ using System.Collections;
 using Cinemachine;
 public class PlayerWeapon : MonoBehaviour
 {
+    private PlayerMove playerMove;
     private Animator m_animator;
     public LayerMask enemyLayer; // 적 레이어 설정
     public Weapon currentWeapon;
@@ -14,6 +15,7 @@ public class PlayerWeapon : MonoBehaviour
     private CinemachineImpulseSource impulseSource;
     private void Start()
     {
+        playerMove = GetComponent<PlayerMove>();
         m_animator = GetComponent<Animator>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
         currentWeapon = weapon1; // 초기 무기를 무기 1로 설정
@@ -44,6 +46,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             SwitchWeapon(weapon1);
             isGun = true;
+            m_animator.SetBool("isGun", isGun);
         }
 
         // 2번 키를 눌렀을 때 무기 2로 변경
@@ -51,6 +54,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             SwitchWeapon(weapon2);
             isGun = false;
+            m_animator.SetBool("isGun", isGun);
         }
     }
 
@@ -72,16 +76,21 @@ public class PlayerWeapon : MonoBehaviour
             if (timeSinceLastFire >= currentWeapon.FireRate)
             {
                 lastFireTime = Time.time; // 발사 시간 갱신
-                currentWeapon.Using(transform);
                 if (isGun)
                 {
-                    m_animator.SetTrigger("Attack");
-                    impulseSource.GenerateImpulse();
-                    AudioManager.Instance.ActionSound(0);
+                    if (!playerMove.isRunning)
+                    {
+                        currentWeapon.Using(transform);
+                        m_animator.SetTrigger("Attack");
+                        impulseSource.GenerateImpulse();
+                        AudioManager.Instance.ActionSound(0);
+                    }
                 }
                 else
                 {
+                    currentWeapon.Using(transform);
                     m_animator.SetTrigger("Swing");
+
                     AudioManager.Instance.ActionSound(1);
                 }
             }

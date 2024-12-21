@@ -124,6 +124,8 @@ public class UnitaskZombie : Character
             agent.ResetPath();
             target = null;
             GameManager.Instance.zombieCityData.ZombieCountUpdate(-1);
+            
+            //Lean.Pool.LeanPool.Spawn(DiePrefab);
             base.Die();
         }
     }
