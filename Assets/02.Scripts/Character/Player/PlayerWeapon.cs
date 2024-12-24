@@ -5,7 +5,6 @@ public class PlayerWeapon : MonoBehaviour
 {
     private PlayerMove playerMove;
     private Animator m_animator;
-    public LayerMask enemyLayer; // 적 레이어 설정
     public Weapon currentWeapon;
     public Weapon weapon1; // 무기 1
     public Weapon weapon2; // 무기 2

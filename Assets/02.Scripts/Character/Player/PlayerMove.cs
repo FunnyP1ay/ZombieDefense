@@ -32,18 +32,17 @@ public class PlayerMove : Character
     }
     private void Update()
     {
-        AimAndRotate();
+       AimAndRotate();
     }
     private void LateUpdate()
     {
-        AimAndRotate();
+       AimAndRotate();
     }
     public void OnMove(InputValue context)
     {
         inputDirection = context.Get<Vector2>();
         print(inputDirection);
     }
-
     public void OnRun(InputValue context)
     {
         if (context.isPressed)
@@ -51,7 +50,6 @@ public class PlayerMove : Character
         else
             isRunning = false;
     }
-
     public void OnAim(InputValue context)
     {
         if (context.isPressed)
@@ -59,83 +57,30 @@ public class PlayerMove : Character
         else
             isAiming = false;
     }
-
-    //public override void Move()
-    //{
-    //    m_animator.SetFloat("MoveX", inputDirection.x);
-    //    m_animator.SetFloat("MoveY", inputDirection.y);
-    //    Vector3 direction = new Vector3(inputDirection.x, 0, inputDirection.y).normalized;
-
-    //    Vector3 currentVelocity = m_rigidbody.velocity;
-
-    //    if (direction.sqrMagnitude > 0)
-    //    {
-    //        direction = mainCamera.transform.TransformDirection(direction);
-    //        direction.y = 0;
-
-    //        // 경사면에 맞춘 이동
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.2f, LayerMask.GetMask("Ground")))
-    //        {
-    //            direction = Vector3.ProjectOnPlane(direction, hit.normal).normalized;
-    //        }
-
-    //        Vector3 moveVelocity = direction * m_speed;
-    //        Vector3 currentHorizontalVelocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
-    //        Vector3 velocityChange = moveVelocity - currentHorizontalVelocity;
-
-    //        if (isRunning)
-    //        {
-    //            AudioManager.Instance.MoveSound(1);
-    //            m_animator.SetBool("isRun", true);
-    //            m_rigidbody.AddForce(velocityChange * 1.5f, ForceMode.VelocityChange);
-    //        }
-    //        else
-    //        {
-    //            AudioManager.Instance.MoveSound(0);
-    //            m_animator.SetBool("isRun", false);
-    //            m_rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        m_animator.SetFloat("MoveX", 0);
-    //        m_animator.SetFloat("MoveY", 0);
-    //        AudioManager.Instance.PlayerMove.Stop();
-
-    //        // 수평 속도 제거, 중력만 유지
-    //        m_rigidbody.velocity = new Vector3(0, currentVelocity.y, 0);
-    //    }
-    //}
     public override void Move()
     {
         m_animator.SetFloat("MoveX", inputDirection.x);
         m_animator.SetFloat("MoveY", inputDirection.y);
         Vector3 direction = new Vector3(inputDirection.x, 0, inputDirection.y).normalized;
-
         Vector3 currentVelocity = m_rigidbody.linearVelocity;
 
         if (direction.sqrMagnitude > 0)
         {
             direction = mainCamera.transform.TransformDirection(direction);
             direction.y = 0;
-
             // 경사면에 맞춘 이동
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.2f, LayerMask.GetMask("Ground")))
             {
                 direction = Vector3.ProjectOnPlane(direction, hit.normal).normalized;
             }
-
             // 이동 속도 설정
             Vector3 moveVelocity = direction * m_speed;
-
             if (isRunning)
             {
                 AudioManager.Instance.MoveSound(1);
                 m_animator.SetBool("isRun", true);
-
-                // isRunning 상태일 때 이동 속도 증가
+                //isRunning 상태일 때 이동 속도 증가
                 moveVelocity *= 1.5f; // 속도 1.5배 증가
             }
             else
@@ -162,10 +107,8 @@ public class PlayerMove : Character
         Vector3 cameraForward = mainCamera.transform.forward;
         cameraForward.y = 0;
         cameraForward.Normalize();
-
         Quaternion lookRotation = Quaternion.LookRotation(cameraForward);
         m_rigidbody.rotation = lookRotation;
-
         if (isAiming)
         {
             if (m_weapon.isGun)

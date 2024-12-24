@@ -5,18 +5,18 @@ using UnityEngine.AI;
 
 public class UnitaskGunnerHuman : Character
 {
-    private static readonly float Time1 = 1f;
-    private static readonly float Time2 = 1.21f;
-    private static readonly float AttackTime = 0.5f;
-    private float m_currentTime;
+    protected static readonly float Time1 = 1f;
+    protected static readonly float Time2 = 1.21f;
+    protected static readonly float AttackTime = 0.5f;
+    protected float m_currentTime;
 
     public GameObject moveTarget;
     public ParticleSystem fireEffect;
-    private NavMeshAgent agent;
-    private float m_detectionRadius = 10f;
-    private bool m_isDie = false;
+    protected NavMeshAgent agent;
+    protected float m_detectionRadius = 10;
+    protected bool m_isDie = false;
 
-    private CancellationTokenSource _cancellationTokenSource;
+    protected CancellationTokenSource _cancellationTokenSource;
 
     public enum State
     {
@@ -29,6 +29,7 @@ public class UnitaskGunnerHuman : Character
     {
         agent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
+        m_detectionRadius = attackRange * 2f;
     }
 
     public override void RespawnSetting()
@@ -39,11 +40,12 @@ public class UnitaskGunnerHuman : Character
         state = State.Move;
         m_currentTime = Time2;
         m_animator.SetBool("Attack", false);
+        m_animator.SetFloat("Speed", 0);
         _cancellationTokenSource = new CancellationTokenSource();
         AIStateAsync(_cancellationTokenSource.Token).Forget(); // 비동기 메서드 실행
     }
 
-    private async UniTaskVoid AIStateAsync(CancellationToken cancellationToken)
+    protected async UniTaskVoid AIStateAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -58,7 +60,7 @@ public class UnitaskGunnerHuman : Character
                         Attack();
                         break;
                 }
-
+                m_animator.SetFloat("Speed", agent.speed);
                 // m_currentTime 동안 대기 (밀리초 단위 변환)
                 await UniTask.Delay((int)(m_currentTime * 1000), cancellationToken: cancellationToken);
             }
