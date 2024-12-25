@@ -96,8 +96,8 @@ public class PlayerMove : Character
         {
             m_animator.SetFloat("MoveX", 0);
             m_animator.SetFloat("MoveY", 0);
+            m_animator.SetBool("isRun", false);
             AudioManager.Instance.PlayerMove.Stop();
-
             // 수평 속도 제거, 중력만 유지
             m_rigidbody.linearVelocity = new Vector3(0, currentVelocity.y, 0);
         }

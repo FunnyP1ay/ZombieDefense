@@ -25,9 +25,18 @@ public class PlayerCityData : MonoBehaviour
     [Header("스파이 점수")]
     public int SPYScore = 0;
     public TMP_Text UI_SPYScore;
+
+    public HumanSpawner humanSpawner;
     private void Awake()
     {
         GameManager.Instance.playerCityData = this;
+    }
+    private void OnEnable()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            humanSpawner.SpawnGunner();
+        }
     }
     private void Start()
     {
