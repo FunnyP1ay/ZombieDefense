@@ -10,7 +10,7 @@ public class SPYGunner : UnitaskGunnerHuman
     public bool Mission = false;
 
     // 스파이 미션 시작
-    public void SPYMissionStart()
+    public override void MissionStart()
     {
         if (currentMissionCoroutine != null)
         {

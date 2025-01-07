@@ -3,7 +3,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitaskGunnerHuman : Character
+public class UnitaskGunnerHuman : Character ,Imission
 {
     protected static readonly float Time1 = 1f;
     protected static readonly float Time2 = 1.21f;
@@ -31,7 +31,10 @@ public class UnitaskGunnerHuman : Character
         m_animator = GetComponent<Animator>();
         m_detectionRadius = attackRange * 2f;
     }
-
+    public virtual void MissionStart()
+    {
+        RespawnSetting();
+    }
     public override void RespawnSetting()
     {
         m_isDie = false;

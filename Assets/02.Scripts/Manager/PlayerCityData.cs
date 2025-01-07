@@ -18,25 +18,16 @@ public class PlayerCityData : MonoBehaviour
     public int HealthLevel = 0;
     public int AttackLevel = 0;
     [Header("도시 방어 유닛 수")]
-    public int PlayerTeamCount = 0;
+    public int PlayerTeamCount = 70;
     public TMP_Text UI_CityUnitCount;
     private bool isRunning = true;
 
     [Header("스파이 점수")]
     public int SPYScore = 0;
     public TMP_Text UI_SPYScore;
-
-    public HumanSpawner humanSpawner;
     private void Awake()
     {
         GameManager.Instance.playerCityData = this;
-    }
-    private void OnEnable()
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            humanSpawner.SpawnGunner();
-        }
     }
     private void Start()
     {

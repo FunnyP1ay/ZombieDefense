@@ -31,11 +31,25 @@ public class StoryManager : MonoBehaviour
             obj.SetActive(false);
         }
     }
-    public void StoryMissonStart()
+    public void StoryFirstMissonStart()
     {
-        foreach (var missionObject in currentStory.Missionobjectives)
+        foreach (var missionObject in currentStory.FirestMission)
         {
-            missionObject.GetComponent<SPYGunner>().SPYMissionStart();
+            if (missionObject.TryGetComponent(out Imission imission))
+            {
+                imission.MissionStart();
+                print("정상 작동 완료");
+            }
+        }
+    }
+    public void StoryLastMissonStart()
+    {
+        foreach (var missionObject in currentStory.LastMission)
+        {
+           if(missionObject.TryGetComponent(out Imission imission))
+            {
+                imission.MissionStart();
+            }
         }
     }
     public void StoryObjectActive()

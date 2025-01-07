@@ -3,7 +3,6 @@ using System.Collections;
 
 public class HumanSpawner : CharacterSpawner
 {
-
     public void SpawnGunner()
     {
         if (GameManager.Instance.playerCityData != null && GameManager.Instance.playerCityData.CityMoney >= 50)
