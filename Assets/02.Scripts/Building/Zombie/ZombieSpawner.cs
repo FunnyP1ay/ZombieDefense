@@ -28,7 +28,6 @@ public class ZombieSpawner : CharacterSpawner
         zombie.health += GameManager.Instance.zombieCityData.HealthLevel;
         zombie.attackPower += GameManager.Instance.zombieCityData.AttackLevel;
         zombie.RespawnSetting();
-        GameManager.Instance.zombieCityData.ZombieCountUpdate(1);
     }
     private void OnDisable()
     {

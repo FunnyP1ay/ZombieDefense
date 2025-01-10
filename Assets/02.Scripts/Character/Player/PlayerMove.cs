@@ -14,8 +14,9 @@ public class PlayerMove : Character
     private Camera mainCamera;
     // Input System 변수
     private Vector2 inputDirection;
-    public bool isRunning;
-    public bool isAiming;
+    public bool isRunning = false;
+    public bool isAiming = false;
+    public bool isFKey = false;
 
     private void Start()
     {
@@ -56,6 +57,15 @@ public class PlayerMove : Character
             isAiming = true;
         else
             isAiming = false;
+    }
+    public void OnFKey(InputValue context)
+    {
+        if (context.isPressed && isFKey)
+        {
+            isFKey = false;
+            GameManager.Instance.UI_InGame.fKeyPanel.SetActive(false);
+            GameManager.Instance.storyManager.NextStory();
+        }
     }
     public override void Move()
     {

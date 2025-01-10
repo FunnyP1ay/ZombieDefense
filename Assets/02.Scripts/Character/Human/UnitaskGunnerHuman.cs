@@ -42,6 +42,7 @@ public class UnitaskGunnerHuman : Character ,Imission
         moveTarget = null;
         state = State.Move;
         m_currentTime = Time2;
+        health += 10;
         m_animator.SetBool("Attack", false);
         m_animator.SetFloat("Speed", 0);
         _cancellationTokenSource = new CancellationTokenSource();
@@ -129,8 +130,9 @@ public class UnitaskGunnerHuman : Character ,Imission
 
     public void CheckAttack()
     {
-        if (target != null && target.activeSelf && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+        if (target != null && target.activeSelf && Vector3.Distance(transform.position, target.transform.position) <= attackRange && target.GetComponent<Character>().health > 0)
         {
+
             target.GetComponent<Character>().TakeDamage(attackPower);
             agent.ResetPath();
             transform.LookAt(target.transform);
@@ -167,8 +169,12 @@ public class UnitaskGunnerHuman : Character ,Imission
             agent.ResetPath();
             target = null;
             GameManager.Instance.playerCityData.PlayerTeamCountUpdate(-1);
-            base.Die();
+            m_animator.SetTrigger("Die");
         }
+    }
+    public void OnDieAnimationEnd()
+    {
+        base.Die();
     }
 
 }

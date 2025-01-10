@@ -8,6 +8,7 @@ public class UI_InGame : MonoBehaviour
 {
     public GameObject tabPanel;
     public GameObject escPanel;
+    public GameObject fKeyPanel;
     private Animator tabPanelAnimator;
 
     public InputActionAsset inputActions; // 인스펙터에서 참조할 InputActionAsset

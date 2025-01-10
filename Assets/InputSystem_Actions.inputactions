@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FKey",
+                    "type": "Button",
+                    "id": "2d2c6192-81cb-4813-81b3-b754bb373321",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -490,6 +499,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8af4db4e-d0c6-4ede-858e-acb1833d8cce",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press,Tap",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "FKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

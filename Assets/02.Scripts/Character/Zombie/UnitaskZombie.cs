@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks; // UniTask 네임스페이스
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,14 +12,14 @@ public class UnitaskZombie : Character
     private float m_currentTime;
     private NavMeshAgent agent;
     public GameObject baseTarget;
-    public GameObject DiePrefab;
     public int m_moveSupportCount = 0;
     private float m_detectionRadius = 10f;
     private bool m_isDie = false;
     private bool m_isPlayerTarget = false;
-    public ParticleSystem BloodParticle;
     private CancellationTokenSource _cancellationTokenSource;
-
+    public ParticleSystem BloodParticle;
+    public List<SkinnedMeshRenderer> skinList;
+    public SkinnedMeshRenderer currentSkin;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -32,7 +34,8 @@ public class UnitaskZombie : Character
         target = null;
         agent.SetDestination(baseTarget.transform.position);
         m_currentTime = Time2;
-
+        currentSkin = skinList[Random.Range(0, skinList.Count)];
+        currentSkin.gameObject.SetActive(true);
         _cancellationTokenSource = new CancellationTokenSource();
         AIStateAsync(_cancellationTokenSource.Token).Forget();
     }
@@ -90,11 +93,13 @@ public class UnitaskZombie : Character
     }
     public override void Attack()
     {
-        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange)
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= attackRange && target.GetComponent<Character>().health > 0)
         {
             target.GetComponent<Character>().TakeDamage(attackPower);
             m_animator.SetTrigger("Attack");
         }
+        else
+            target = null;
     }
 
     public void NextCoroutineTime()
@@ -123,11 +128,12 @@ public class UnitaskZombie : Character
             }
             agent.ResetPath();
             target = null;
-            GameManager.Instance.zombieCityData.ZombieCountUpdate(-1);
-            
-            //Lean.Pool.LeanPool.Spawn(DiePrefab);
-            base.Die();
+            m_animator.SetTrigger("Die");
         }
     }
-
+    public void OnDieAnimationEnd()
+    {
+        currentSkin.gameObject.SetActive(false);
+        base.Die();
+    }
 }
