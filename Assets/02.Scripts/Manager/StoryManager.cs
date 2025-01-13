@@ -75,13 +75,28 @@ public class StoryManager : MonoBehaviour
     }
     public void QuestObjectSetting()
     {
-        if(currentStory.QuestObject!=null)
-        currentStory.QuestObject.gameObject.SetActive(true);
+
+        if (currentStory.StoryStartObject.Length != 0)
+        {
+            foreach (GameObject _object in currentStory.StoryStartObject) 
+            {
+                _object.SetActive(true);
+            }
+        }
+    }
+    public void QuestObjectOff()
+    {
+        if (currentStory.StoryEndObject.Length != 0)
+        {
+            foreach (GameObject _object in currentStory.StoryEndObject)
+            {
+                _object.SetActive(false);
+            }
+        }
     }
     public void NextStory()
     {
-        if (currentStory.QuestObject != null)
-            currentStory.QuestObject.gameObject.SetActive(false);
+        QuestObjectOff();
         currentStoryIndex++;
         if (currentStoryIndex < stories.Length)
         {

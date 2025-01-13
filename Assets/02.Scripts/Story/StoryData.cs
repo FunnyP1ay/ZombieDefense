@@ -18,6 +18,8 @@ public class StoryData : MonoBehaviour
     public GameObject[] FirestMission;
     [Header("타임라인 Last 미션 실행 오브젝트들")]
     public GameObject[] LastMission;
-    [Header("스토리 시작즉시 켜지는 퀘스트 오브젝트")]
-    public StoryChecker QuestObject;
+    [Header("스토리 시작즉시 켜지는 오브젝트")]
+    public GameObject[] StoryStartObject;
+    [Header("스토리 끝날 때 꺼지는 오브젝트")]
+    public GameObject[] StoryEndObject;
 }

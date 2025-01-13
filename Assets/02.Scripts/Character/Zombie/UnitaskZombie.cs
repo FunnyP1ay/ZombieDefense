@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 public class UnitaskZombie : Character
 {
@@ -17,7 +19,8 @@ public class UnitaskZombie : Character
     private bool m_isDie = false;
     private bool m_isPlayerTarget = false;
     private CancellationTokenSource _cancellationTokenSource;
-    public ParticleSystem BloodParticle;
+    public VisualEffect BloodVFX;
+    private int triggerID = 0; // 트리거 ID로 고유 이벤트 식별
     public List<SkinnedMeshRenderer> skinList;
     public SkinnedMeshRenderer currentSkin;
     private void Awake()
@@ -29,6 +32,7 @@ public class UnitaskZombie : Character
     public override void RespawnSetting()
     {
         health += 5;
+        triggerID = 0;
         baseTarget = GameManager.Instance.playerCityData.playerBase;
         m_isDie = false;
         target = null;
@@ -110,7 +114,15 @@ public class UnitaskZombie : Character
     {
         if (damage > 0)
         {
-            BloodParticle.Play();
+            if (BloodVFX != null)
+            {
+                // 고유 트리거 이벤트 생성
+                BloodVFX.SetInt("TriggerID", triggerID);
+                BloodVFX.SendEvent("OnTrigger");
+
+                // 트리거 ID 업데이트
+                triggerID++;
+            }
         }
         base.TakeDamage(damage);
     }

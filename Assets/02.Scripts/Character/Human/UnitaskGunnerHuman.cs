@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks; // UniTask 네임스페이스
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class UnitaskGunnerHuman : Character ,Imission
 {
@@ -15,6 +16,8 @@ public class UnitaskGunnerHuman : Character ,Imission
     protected NavMeshAgent agent;
     protected float m_detectionRadius = 10;
     protected bool m_isDie = false;
+    public VisualEffect BloodVFX;
+    private int triggerID = 0; // 트리거 ID로 고유 이벤트 식별
 
     protected CancellationTokenSource _cancellationTokenSource;
 
@@ -153,7 +156,22 @@ public class UnitaskGunnerHuman : Character ,Imission
     {
         m_currentTime = Random.Range(0, 2) == 0 ? Time1 : Time2;
     }
+    public override void TakeDamage(float damage)
+    {
+        if (damage > 0)
+        {
+            if (BloodVFX != null)
+            {
+                // 고유 트리거 이벤트 생성
+                BloodVFX.SetInt("TriggerID", triggerID);
+                BloodVFX.SendEvent("OnTrigger");
 
+                // 트리거 ID 업데이트
+                triggerID++;
+            }
+        }
+        base.TakeDamage(damage);
+    }
     protected override void Die()
     {
         if (!m_isDie)
