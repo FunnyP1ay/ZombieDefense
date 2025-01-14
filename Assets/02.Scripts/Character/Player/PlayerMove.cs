@@ -1,7 +1,9 @@
 using Cinemachine;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerMove : Character
 {
@@ -10,10 +12,19 @@ public class PlayerMove : Character
     private PlayerWeapon m_weapon;
     [Header("플레이어 체력 UI")]
     public TMP_Text UI_PlayerHP;
-
+    [Header("마우스 감도")]
+    public Quaternion nextRotation;
+    public float rotationPower = 3f;
+    public float rotationLerp = 0.5f;
+    private Vector2 inputDirection;
+    private Vector2 lookInput;
+    [Header("카메라 에임")]
+    public GameObject followTransform;
+    [Header("카메라 들")]
+    public GameObject defaultCamera;
+    public GameObject AimCamera;
     private Camera mainCamera;
     // Input System 변수
-    private Vector2 inputDirection;
     public bool isRunning = false;
     public bool isAiming = false;
     public bool isFKey = false;
@@ -31,13 +42,9 @@ public class PlayerMove : Character
     {
         Move();
     }
-    private void Update()
-    {
-       AimAndRotate();
-    }
     private void LateUpdate()
     {
-       AimAndRotate();
+        LookAround();
     }
     public void OnMove(InputValue context)
     {
@@ -51,6 +58,11 @@ public class PlayerMove : Character
         else
             isRunning = false;
     }
+    public void OnLook(InputValue context)
+    {
+        lookInput = context.Get<Vector2>();
+    }
+
     public void OnAim(InputValue context)
     {
         if (context.isPressed)
@@ -67,6 +79,7 @@ public class PlayerMove : Character
             GameManager.Instance.storyManager.NextStory();
         }
     }
+
     public override void Move()
     {
         m_animator.SetFloat("MoveX", inputDirection.x);
@@ -112,25 +125,60 @@ public class PlayerMove : Character
             m_rigidbody.linearVelocity = new Vector3(0, currentVelocity.y, 0);
         }
     }
-    private void AimAndRotate()
+    private void LookAround()
     {
-        Vector3 cameraForward = mainCamera.transform.forward;
-        cameraForward.y = 0;
-        cameraForward.Normalize();
-        Quaternion lookRotation = Quaternion.LookRotation(cameraForward);
-        m_rigidbody.rotation = lookRotation;
+        // 이코드 출처 https://youtu.be/537B1kJp9YQ?t=236
+        float mouseX = lookInput.x;
+        float mouseY = lookInput.y;
+
+
+        // 캐릭터 회전
+        followTransform.transform.rotation *= Quaternion.AngleAxis(mouseX * rotationPower, Vector2.up);
+
+        followTransform.transform.rotation *= Quaternion.AngleAxis(-mouseY * rotationPower, Vector2.right);
+
+        var angles = followTransform.transform.localEulerAngles;
+        angles.z = 0;
+        var angle = followTransform.transform.localEulerAngles.x;
+        if (angle > 180 && angle < 340)
+        {
+            angles.x = 340;
+        }
+        else if (angle < 180 && angle > 40)
+        {
+            angles.x = 40;
+        }
+
+        followTransform.transform.localEulerAngles = angles;
+        nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+
+
         if (isAiming)
         {
             if (m_weapon.isGun)
+            {
+                transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+                followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
                 m_animator.SetBool("IsAim", true);
+                AimCamera.gameObject.SetActive(true);
+                defaultCamera.gameObject.SetActive(false);
+                return;
+            }
             else
+            {
                 m_animator.SetBool("IsAim", false);
+                defaultCamera.gameObject.SetActive(true);
+                AimCamera.gameObject.SetActive(false);
+            }
+
         }
-        else
-        {
-            m_animator.SetBool("IsAim", false);
-        }
+        defaultCamera.gameObject.SetActive(true);
+        AimCamera.gameObject.SetActive(false);
+        m_animator.SetBool("IsAim", false);
+        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
+
 
     public override void TakeDamage(float damage)
     {
