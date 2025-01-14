@@ -3,20 +3,20 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SPYGunner : UnitaskGunnerHuman
+public class SPYGunner : UnitaskGunnerHuman, ISPY
 {
     private WaitForSecondsRealtime time = new WaitForSecondsRealtime(0.5f);
     private Coroutine currentMissionCoroutine; // 현재 실행 중인 코루틴 참조
     public bool Mission = false;
-
     // 스파이 미션 시작
-    public override void MissionStart()
+    public void SPYMission(GameObject _target)
     {
         if (currentMissionCoroutine != null)
         {
             StopCoroutine(currentMissionCoroutine); // 이미 실행 중인 코루틴이 있다면 중단
         }
         Mission = true;
+        moveTarget = _target;
         currentMissionCoroutine = StartCoroutine(SPYMission());
     }
 
@@ -25,16 +25,13 @@ public class SPYGunner : UnitaskGunnerHuman
     {
         while (Mission)
         {
-            if (GameManager.Instance.player.transform.position != null)
+
+            if (Vector3.Distance(this.transform.position, moveTarget.transform.position) < 3f)
+                agent.speed = 0;
+            else
             {
-                moveTarget = GameManager.Instance.player.gameObject;
-                if (Vector3.Distance(this.transform.position, moveTarget.transform.position) < 3f)
-                    agent.speed = 0;
-                else
-                {
-                    agent.SetDestination(moveTarget.transform.position);
-                    agent.speed = 5f;
-                }
+                agent.SetDestination(moveTarget.transform.position);
+                agent.speed = 5f;
             }
             m_animator.SetFloat("Speed", agent.speed);
             yield return time;

@@ -27,6 +27,12 @@ public class StoryManager : MonoBehaviour
         Debug.Log($"스토리 시작: {stories[index].storyName}");
         currentStory = stories[index];
         QuestObjectSetting();
+
+        if(currentStory.TimeLine == false)
+        {
+            StorySPYMissonStart();
+        }
+
         // DialogueSystem에 대사 데이터 설정
         if (dialogueSystem != null && currentStory.dialogueData != null)
         {
@@ -55,13 +61,16 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    public void StoryLastMissonStart()
+    public void StorySPYMissonStart()
     {
-        foreach (var missionObject in currentStory.LastMission)
+        if (currentStory.MoveTarget != null)
         {
-            if (missionObject.TryGetComponent(out Imission imission))
+            foreach (var missionObject in currentStory.LastMission)
             {
-                imission.MissionStart();
+                if (missionObject.TryGetComponent(out ISPY SPY))
+                {
+                    SPY.SPYMission(currentStory.MoveTarget);
+                }
             }
         }
     }
@@ -78,7 +87,7 @@ public class StoryManager : MonoBehaviour
 
         if (currentStory.StoryStartObject.Length != 0)
         {
-            foreach (GameObject _object in currentStory.StoryStartObject) 
+            foreach (GameObject _object in currentStory.StoryStartObject)
             {
                 _object.SetActive(true);
             }

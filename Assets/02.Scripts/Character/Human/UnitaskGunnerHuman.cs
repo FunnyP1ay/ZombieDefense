@@ -158,19 +158,24 @@ public class UnitaskGunnerHuman : Character ,Imission
     }
     public override void TakeDamage(float damage)
     {
-        if (damage > 0)
+        // 데미지를 입었습니다.
+        health -= damage;
+        if (health < 0)
+        {
+            Die();
+            return;
+        }
+        else
         {
             if (BloodVFX != null)
             {
+                // 트리거 ID 업데이트
+                triggerID = Random.Range(1000, 10000);
                 // 고유 트리거 이벤트 생성
                 BloodVFX.SetInt("TriggerID", triggerID);
                 BloodVFX.SendEvent("OnTrigger");
-
-                // 트리거 ID 업데이트
-                triggerID++;
             }
         }
-        base.TakeDamage(damage);
     }
     protected override void Die()
     {
