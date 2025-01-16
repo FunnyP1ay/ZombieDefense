@@ -140,13 +140,13 @@ public class PlayerMove : Character
         var angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
         var angle = followTransform.transform.localEulerAngles.x;
-        if (angle > 180 && angle < 340)
+        if (angle > 180 && angle < 300)
         {
-            angles.x = 340;
+            angles.x = 300;
         }
-        else if (angle < 180 && angle > 40)
+        else if (angle < 180 && angle > 60)
         {
-            angles.x = 40;
+            angles.x = 60;
         }
 
         followTransform.transform.localEulerAngles = angles;
