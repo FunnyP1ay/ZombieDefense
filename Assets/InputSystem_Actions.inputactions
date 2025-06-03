@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CKey",
+                    "type": "Button",
+                    "id": "f4bbd137-4415-4243-97ac-6aaf26423142",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -506,10 +515,21 @@
                     "name": "",
                     "id": "8af4db4e-d0c6-4ede-858e-acb1833d8cce",
                     "path": "<Keyboard>/f",
-                    "interactions": "Press,Tap",
+                    "interactions": "Press(behavior=2),Tap",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "FKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d16ad18b-d45f-4b62-b6dd-9c2589b748d4",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "CKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
