@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class StoryManager : MonoBehaviour
 {
@@ -32,6 +33,14 @@ public class StoryManager : MonoBehaviour
         {
             StorySPYMissonStart();
         }
+        else
+        {
+            if(TryGetComponent<PlayableDirector>(out PlayableDirector timeline))
+            {
+                timeline.Play();
+            }
+        }
+
 
         // DialogueSystem에 대사 데이터 설정
         if (dialogueSystem != null && currentStory.dialogueData != null)

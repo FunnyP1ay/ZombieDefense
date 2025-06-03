@@ -23,11 +23,11 @@ public class StoryData : MonoBehaviour
     public int noUse3;
     public GameObject[] Activeobjectives;
 
-    [Header("타임라인 일반 미션 실행 오브젝트들")]
+    [Header("일반 미션 실행 오브젝트들(타임라인 가능)")]
     public int noUse4;
     public GameObject[] BasicMission;
 
-    [Header("타임라인 SPY 미션 실행 오브젝트들")]
+    [Header("SPY 미션 실행 오브젝트들(타임라인 가능)")]
     public int noUse5;
     public GameObject[] SPYMission;
 

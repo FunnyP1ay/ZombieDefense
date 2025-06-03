@@ -25,9 +25,6 @@ public class SPYGunner : UnitaskGunnerHuman, ISPY
     {
         while (Mission)
         {
-            if (target == null)
-                StopMission();
-
             if (Vector3.Distance(this.transform.position, moveTarget.transform.position) < 3f)
                 agent.speed = 0;
             else
