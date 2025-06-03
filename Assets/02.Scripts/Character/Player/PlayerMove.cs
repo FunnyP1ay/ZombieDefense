@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using TMPro;
 using UnityEditor;
 using UnityEngine;

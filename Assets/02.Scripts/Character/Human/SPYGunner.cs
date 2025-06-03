@@ -25,6 +25,8 @@ public class SPYGunner : UnitaskGunnerHuman, ISPY
     {
         while (Mission)
         {
+            if (target == null)
+                StopMission();
 
             if (Vector3.Distance(this.transform.position, moveTarget.transform.position) < 3f)
                 agent.speed = 0;
@@ -43,6 +45,8 @@ public class SPYGunner : UnitaskGunnerHuman, ISPY
     {
         if (currentMissionCoroutine != null)
         {
+            agent.speed = 0;
+            m_animator.SetFloat("Speed", agent.speed);
             StopCoroutine(currentMissionCoroutine);
             currentMissionCoroutine = null; // 참조 초기화
         }

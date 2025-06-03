@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-using Cinemachine;
+using Unity.Cinemachine;
+
 public class PlayerWeapon : MonoBehaviour
 {
     private PlayerMove playerMove;
@@ -19,7 +20,6 @@ public class PlayerWeapon : MonoBehaviour
         impulseSource = GetComponent<CinemachineImpulseSource>();
         currentWeapon = weapon1; // 초기 무기를 무기 1로 설정
     }
-
     private void Update()
     {
         // 무기 변경

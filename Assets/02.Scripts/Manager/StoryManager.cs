@@ -51,7 +51,7 @@ public class StoryManager : MonoBehaviour
 
     public void StoryFirstMissonStart()
     {
-        foreach (var missionObject in currentStory.FirestMission)
+        foreach (var missionObject in currentStory.BasicMission)
         {
             if (missionObject.TryGetComponent(out Imission imission))
             {
@@ -65,7 +65,7 @@ public class StoryManager : MonoBehaviour
     {
         if (currentStory.MoveTarget != null)
         {
-            foreach (var missionObject in currentStory.LastMission)
+            foreach (var missionObject in currentStory.SPYMission)
             {
                 if (missionObject.TryGetComponent(out ISPY SPY))
                 {
