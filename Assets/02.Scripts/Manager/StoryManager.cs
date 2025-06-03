@@ -27,7 +27,6 @@ public class StoryManager : MonoBehaviour
         Debug.Log($"스토리 시작: {stories[index].storyName}");
         currentStory = stories[index];
         QuestObjectSetting();
-
         if(currentStory.TimeLine == false)
         {
             StorySPYMissonStart();
@@ -43,7 +42,7 @@ public class StoryManager : MonoBehaviour
 
     public void StoryObjectClear()
     {
-        foreach (var obj in currentStory.Clearobjectives)
+        foreach (var obj in currentStory.TimeLineAfterClearobjectives)
         {
             obj.SetActive(false);
         }
@@ -51,7 +50,7 @@ public class StoryManager : MonoBehaviour
 
     public void StoryFirstMissonStart()
     {
-        foreach (var missionObject in currentStory.FirestMission)
+        foreach (var missionObject in currentStory.BasicMission)
         {
             if (missionObject.TryGetComponent(out Imission imission))
             {
@@ -65,7 +64,7 @@ public class StoryManager : MonoBehaviour
     {
         if (currentStory.MoveTarget != null)
         {
-            foreach (var missionObject in currentStory.LastMission)
+            foreach (var missionObject in currentStory.SPYMission)
             {
                 if (missionObject.TryGetComponent(out ISPY SPY))
                 {
@@ -77,7 +76,7 @@ public class StoryManager : MonoBehaviour
 
     public void StoryObjectActive()
     {
-        foreach (var missionObject in currentStory.Activeobjectives)
+        foreach (var missionObject in currentStory.TimeLineAfterActiveobjectives)
         {
             missionObject.SetActive(true);
         }
