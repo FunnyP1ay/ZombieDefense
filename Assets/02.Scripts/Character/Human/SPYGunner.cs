@@ -25,11 +25,6 @@ public class SPYGunner : UnitaskGunnerHuman, ISPY
     {
         while (Mission)
         {
-            if (moveTarget == null)
-            {
-                StopMission();
-            }
-
 
             if (Vector3.Distance(this.transform.position, moveTarget.transform.position) < 3f)
                 agent.speed = 0;
@@ -39,7 +34,6 @@ public class SPYGunner : UnitaskGunnerHuman, ISPY
                 agent.speed = 5f;
             }
             m_animator.SetFloat("Speed", agent.speed);
-
             yield return time;
         }
     }
